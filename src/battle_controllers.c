@@ -1908,7 +1908,9 @@ void StartSendOutAnim(u32 battler, bool32 dontClearTransform, bool32 dontClearSu
 
     ClearTemporarySpeciesSpriteData(battler, dontClearTransform, dontClearSubstituteBit);
     gBattlerPartyIndexes[battler] = gBattleResources->bufferA[battler][1];
-    species = GetBattlerVisualSpecies(battler);
+    species = GetIllusionMonSpecies(battler);
+    if (species == SPECIES_NONE)
+        species = GetMonData(mon, MON_DATA_SPECIES);
     gBattleControllerData[battler] = CreateInvisibleSpriteWithCallback(SpriteCB_WaitForBattlerBallReleaseAnim);
     // Load sprite for opponent only, player sprite is expected to be already loaded.
     if (!IsOnPlayerSide(battler))
@@ -2234,7 +2236,7 @@ void BtlController_HandleLoadMonSprite(u32 battler)
 {
     u32 y;
     struct Pokemon *mon = GetBattlerMon(battler);
-    u16 species = GetBattlerVisualSpecies(battler);
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
 
     if (gBattleTypeFlags & BATTLE_TYPE_GHOST && GetBattlerSide(battler) == B_SIDE_OPPONENT)
     {
@@ -2959,7 +2961,7 @@ void TrySetBattlerShadowSpriteCallback(u32 battler)
     if (gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdPrimary].callback == SpriteCallbackDummy
      && (B_ENEMY_MON_SHADOW_STYLE <= GEN_3 || P_GBA_STYLE_SPECIES_GFX == TRUE
       || gSprites[gBattleSpritesDataPtr->healthBoxesData[battler].shadowSpriteIdSecondary].callback == SpriteCallbackDummy))
-        SetBattlerShadowSpriteCallback(battler, GetBattlerVisualSpecies(battler));
+        SetBattlerShadowSpriteCallback(battler, GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES));
 }
 
 void TryShinyAnimAfterMonAnim(u32 battler)
@@ -3103,8 +3105,16 @@ void BtlController_HandleSwitchInTryShinyAnim(u32 battler)
         if (GetBattlerSide(battler) == B_SIDE_OPPONENT)
             SetBattlerShadowSpriteCallback(battler, GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES));
 
-    if (GetBattlerSide(battler) == B_SIDE_OPPONENT)
-        SetBattlerShadowSpriteCallback(battler, GetBattlerVisualSpecies(battler));
-
-    return TRUE;
+        if (IsControllerPlayer(battler))
+        {
+            UpdateHealthboxAttribute(gHealthboxSpriteIds[battler], GetBattlerMon(battler), HEALTHBOX_ALL);
+            StartHealthboxSlideIn(battler);
+            SetHealthboxSpriteVisible(gHealthboxSpriteIds[battler]);
+            gBattlerControllerFuncs[battler] = SwitchIn_CleanShinyAnimShowSubstitute;
+        }
+        else
+        {
+            gBattlerControllerFuncs[battler] = BtlController_HandleSwitchInShowHealthbox;
+        }
+    }
 }
