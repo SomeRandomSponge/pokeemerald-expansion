@@ -204,11 +204,11 @@ struct Time
     /*0x04*/ s8 seconds;
 };
 
-struct NPCFollowerMapData
+struct NPCFollowerPadding
 {
-    u8 id;
-    u8 number;
-    u8 group;
+    u8 padding1;
+    u8 padding2;
+    u8 padding3;
 };
 
 struct NPCFollower
@@ -220,7 +220,7 @@ struct NPCFollower
     u8 objId;
     u8 currentSprite;
     u8 delayedState;
-    struct NPCFollowerMapData map;
+    struct NPCFollowerPadding padding;
     struct Coords16 log;
     const u8 *script;
     u16 flag;
@@ -925,20 +925,21 @@ struct TrainerNameRecord
     u8 ALIGNED(2) trainerName[PLAYER_NAME_LENGTH + 1];
 };
 
-struct TrainerHillSave
-{
-    /*0x3D64*/ u32 timer;
-    /*0x3D68*/ u32 bestTime;
-    /*0x3D6C*/ u8 unk_3D6C;
-    /*0x3D6D*/ u8 unused;
-    /*0x3D6E*/ u16 receivedPrize:1;
-               u16 checkedFinalTime:1;
-               u16 spokeToOwner:1;
-               u16 hasLost:1;
-               u16 maybeECardScanDuringChallenge:1;
-               u16 field_3D6E_0f:1;
-               u16 mode:2; // HILL_MODE_*
-               //u16 padding:8;
+struct TrainerTowerHillSave
+{    
+/*0x3D64*/ u32 timer;
+/*0x3D68*/ u32 bestTime;
+/*0x3D6C*/ u8 floorsCleared;
+/*0x3D6D*/ u8 unused;
+/*0x3D6E*/ u16 receivedPrize:1;
+            u16 checkedFinalTime:1;
+            u16 spokeToOwner:1;
+            u16 hasLost:1;
+            u16 maybeECardScanDuringChallenge:1;
+            u16 field_3D6E_0f:1;
+            bool16 unkA_4:1;
+            bool16 validated:1;
+            //u16 padding:6;<<
 };
 
 struct WonderNewsMetadata
@@ -1044,6 +1045,15 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+struct Bag
+{
+    struct ItemSlot items[BAG_ITEMS_COUNT];
+    struct ItemSlot keyItems[BAG_KEYITEMS_COUNT];
+    struct ItemSlot pokeBalls[BAG_POKEBALLS_COUNT];
+    struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
+    struct ItemSlot berries[BAG_BERRIES_COUNT];
+};
+
 struct SaveBlock1
 {
     /*0x00*/ struct Coords16 pos;
@@ -1066,11 +1076,8 @@ struct SaveBlock1
     /*0x494*/ u16 coins;
     /*0x496*/ u16 registeredItem; // registered for use with SELECT button
     /*0x498*/ struct ItemSlot pcItems[PC_ITEMS_COUNT];
-    /*0x560*/ struct ItemSlot bagPocket_Items[BAG_ITEMS_COUNT];
-    /*0x5D8*/ struct ItemSlot bagPocket_KeyItems[BAG_KEYITEMS_COUNT];
-    /*0x650*/ struct ItemSlot bagPocket_PokeBalls[BAG_POKEBALLS_COUNT];
-    /*0x690*/ struct ItemSlot bagPocket_TMHM[BAG_TMHM_COUNT];
-    /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
+    /*0x560 -> 0x848 is bag storage*/
+    /*0x560*/ struct Bag bag;
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
 #if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1 == FALSE
     /*0x988*/ u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
@@ -1152,7 +1159,8 @@ struct SaveBlock1
     /*0x3???*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
 #endif //FREE_UNION_ROOM_CHAT
 #if FREE_TRAINER_HILL == FALSE
-    /*0x3???*/ struct TrainerHillSave trainerHill;
+    u8 trainerHillMode;
+    /*0x3???*/ struct TrainerTowerHillSave trainerHill[NUM_TRAINER_HILL_MODES];
 #endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3???

@@ -5,6 +5,7 @@
 #include "gpu_regs.h"
 #include "malloc.h"
 #include "menu.h"
+#include "decompress.h"
 
 #define DISPCNT_ALL_BG_AND_MODE_BITS    (DISPCNT_BG_ALL_ON | 0x7)
 
@@ -39,6 +40,7 @@ struct BgConfig2
 static struct BgControl sGpuBgConfigs;
 static struct BgConfig2 sGpuBgConfigs2[NUM_BACKGROUNDS];
 static u32 sDmaBusyBitfield[NUM_BACKGROUNDS];
+static u8 gpu_tile_allocation_map_bg[0x100];
 
 COMMON_DATA u32 gWindowTileAutoAllocEnabled = 0;
 
@@ -288,10 +290,60 @@ bool32 IsInvalidBg(u32 bg)
 // From FRLG. Dummied out.
 int BgTileAllocOp(int bg, int offset, int count, int mode)
 {
+    int start, end;
+    int blockSize;
+    int blockStart;
+    int i;
+
+    switch (mode)
+    {
+    case 0:
+        start = GetBgControlAttribute(bg, BG_CTRL_ATTR_CHARBASEINDEX) * (BG_CHAR_SIZE / TILE_SIZE_4BPP);
+        end = start + 0x400;
+        if (end > 0x800)
+            end = 0x800;
+        blockSize = 0;
+        blockStart = 0;
+        for (i = start, offset = 0; i < end; i++, offset++)
+        {
+            if (!((gpu_tile_allocation_map_bg[i / 8] >> (i % 8)) & 1))
+            {
+                if (blockSize)
+                {
+                    blockSize++;
+                    if (blockSize == count)
+                        return blockStart;
+                }
+                else
+                {
+                    blockStart = offset;
+                    blockSize = 1;
+                }
+            }
+            else
+            {
+                blockSize = 0;
+            }
+        }
+        return -1;
+    case 1:
+        start = GetBgControlAttribute(bg, BG_CTRL_ATTR_CHARBASEINDEX) * (BG_CHAR_SIZE / TILE_SIZE_4BPP) + offset;
+        end = start + count;
+        for (i = start; i < end; i++)
+            gpu_tile_allocation_map_bg[i / 8] |= 1 << (i % 8);
+        break;
+    case 2:
+        start = GetBgControlAttribute(bg, BG_CTRL_ATTR_CHARBASEINDEX) * (BG_CHAR_SIZE / TILE_SIZE_4BPP) + offset;
+        end = start + count;
+        for (i = start; i < end; i++)
+            gpu_tile_allocation_map_bg[i / 8] &= ~(1 << (i % 8));
+        break;
+    }
+
     return 0;
 }
 
-void ResetBgsAndClearDma3BusyFlags(u32 leftoverFireRedLeafGreenVariable)
+void ResetBgsAndClearDma3BusyFlags(u32 enableWindowTileAutoAlloc)
 {
     int i;
     ResetBgs();
@@ -301,7 +353,12 @@ void ResetBgsAndClearDma3BusyFlags(u32 leftoverFireRedLeafGreenVariable)
         sDmaBusyBitfield[i] = 0;
     }
 
-    gWindowTileAutoAllocEnabled = leftoverFireRedLeafGreenVariable;
+    gWindowTileAutoAllocEnabled = enableWindowTileAutoAlloc;
+
+    for (i = 0; i < ARRAY_COUNT(gpu_tile_allocation_map_bg); i++)
+    {
+        gpu_tile_allocation_map_bg[i] = 0;
+    }
 }
 
 void InitBgsFromTemplates(u32 bgMode, const struct BgTemplate *templates, u8 numTemplates)
@@ -332,6 +389,8 @@ void InitBgsFromTemplates(u32 bgMode, const struct BgTemplate *templates, u8 num
             sGpuBgConfigs2[bg].tilemap = NULL;
             sGpuBgConfigs2[bg].bg_x = 0;
             sGpuBgConfigs2[bg].bg_y = 0;
+
+            gpu_tile_allocation_map_bg[(templates[i].charBaseIndex * (BG_CHAR_SIZE / TILE_SIZE_4BPP)) / 8] = 1;
         }
     }
 }
@@ -357,6 +416,8 @@ void InitBgFromTemplate(const struct BgTemplate *template)
         sGpuBgConfigs2[bg].tilemap = NULL;
         sGpuBgConfigs2[bg].bg_x = 0;
         sGpuBgConfigs2[bg].bg_y = 0;
+
+        gpu_tile_allocation_map_bg[(template->charBaseIndex * (BG_CHAR_SIZE / TILE_SIZE_4BPP)) / 8] = 1;
     }
 }
 
@@ -874,7 +935,7 @@ void CopyToBgTilemapBuffer(u32 bg, const void *src, u32 mode, u32 destOffset)
         if (mode != 0)
             CpuCopy16(src, (void *)(sGpuBgConfigs2[bg].tilemap + (destOffset * 2)), mode);
         else
-            LZ77UnCompWram(src, (void *)(sGpuBgConfigs2[bg].tilemap + (destOffset * 2)));
+            DecompressDataWithHeaderWram(src, (void *)(sGpuBgConfigs2[bg].tilemap + (destOffset * 2)));
     }
 }
 

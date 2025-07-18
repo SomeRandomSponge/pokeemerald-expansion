@@ -93,6 +93,7 @@ void AnimWeatherBallUp(struct Sprite *sprite);
 void AnimWeatherBallDown(struct Sprite *sprite);
 void AnimSpinningSparkle(struct Sprite *sprite);
 void SetAverageBattlerPositions(u8 battler, bool8 respectMonPicOffsets, s16 *x, s16 *y);
+void SetToPartnerPositions(u8 battler, bool8 respectMonPicOffsets, s16 *x, s16 *y);
 void DestroySpriteAndMatrix(struct Sprite *sprite);
 void TranslateSpriteLinearFixedPoint(struct Sprite *sprite);
 void InitSpritePosToAnimAttacker(struct Sprite *sprite, bool8 respectMonPicOffsets);
@@ -125,6 +126,7 @@ void GetBattleAnimBg1Data(struct BattleAnimBgData *out);
 void GetBattleAnimBgData(struct BattleAnimBgData *out, u32 bgId);
 u8 GetBattlerSpriteSubpriority(u8 battler);
 bool8 TranslateAnimHorizontalArc(struct Sprite *sprite);
+bool8 TranslateAnimVerticalArc(struct Sprite *sprite);
 void TranslateSpriteLinearByIdFixedPoint(struct Sprite *sprite);
 void ResetSpriteRotScale(u8 spriteId);
 void SetSpriteRotScale(u8 spriteId, s16 xScale, s16 yScale, u16 rotation);
@@ -167,6 +169,7 @@ void DestroySpriteAndFreeResources_(struct Sprite *sprite);
 void SetBattlerSpriteYOffsetFromOtherYScale(u8 spriteId, u8 otherSpriteId);
 void ConvertPosDataToTranslateLinearData(struct Sprite *sprite);
 void InitAnimFastLinearTranslationWithSpeedAndPos(struct Sprite *sprite);
+u8 GetGhostSpriteDefault_Y(u8 battlerId);
 
 enum
 {
@@ -230,6 +233,8 @@ void AnimMudSportDirt(struct Sprite *sprite);
 void AnimDirtScatter(struct Sprite *sprite);
 void AnimMudSportDirtRising(struct Sprite *sprite);
 void AnimDirtPlumeParticle(struct Sprite *);
+void AnimBoneHitProjectile(struct Sprite *sprite);
+extern const union AnimCmd *const sAnims_MudSlapMud[];
 extern const union AffineAnimCmd *const gAffineAnims_SpinningBone[];
 
 // battle_anim_throw.c
@@ -240,6 +245,8 @@ bool32 IsCriticalCapture(void);
 // battle_anim_utility_funcs.c
 void InitStatsChangeAnimation(u8 taskId);
 void StartMonScrollingBgMask(u8 taskId, int UNUSED unused, u16 scrollSpeed, u8 battler, bool8 includePartner, u8 numFadeSteps, u8 fadeStepDelay, u8 duration, const u32 *gfx, const u32 *tilemap, const u16 *palette);
+void LoadHealthboxPalsForLevelUp(u8 *paletteId1, u8 *paletteId2, u8 battler);
+void FreeHealthboxPalsForLevelUp(u8 battler);
 
 // battle_anim_effects_1.c
 void AnimFalseSwipeSlice_Step3(struct Sprite *);
@@ -268,6 +275,7 @@ void AnimTranslateLinearSingleSineWave(struct Sprite *sprite);
 void AnimTeraStarstormStars(struct Sprite *sprite);
 void AnimGrantingStars(struct Sprite *sprite);
 void AnimFollowMeFinger(struct Sprite *sprite);
+void AnimPoisonJabProjectile(struct Sprite *sprite);
 extern const union AnimCmd *const gRazorLeafParticleAnimTable[];
 extern const union AnimCmd *const gPowerAbsorptionOrbAnimTable[];
 extern const union AffineAnimCmd *const gPowerAbsorptionOrbAffineAnimTable[];
@@ -466,6 +474,7 @@ void AnimElectricity(struct Sprite *);
 void AnimTask_VoltSwitch(struct Sprite* sprite);
 extern const union AffineAnimCmd *const gAffineAnims_GrowingElectricOrb[];
 extern const union AffineAnimCmd *const gAffineAnims_FlashingSpark[];
+extern const union AnimCmd *const sAnims_CirclingElectricShock[];
 extern const union AnimCmd *const gAnims_ThunderboltOrb[];
 extern const union AnimCmd *const gAnims_ElectricPuff[];
 extern const union AnimCmd *const gAnims_ElectricChargingParticles[];
@@ -490,6 +499,8 @@ extern const union AnimCmd *const gAnims_FlyingRock[];
 extern const union AffineAnimCmd *const gAffineAnims_Whirlpool[];
 extern const union AffineAnimCmd *const gAffineAnims_BasicRock[];
 extern const union AnimCmd *const gAnims_FlyingRock[];
+extern const union AnimCmd *const sAnims_BasicRock[];
+void AnimRockTomb(struct Sprite *sprite);
 void AnimParticleInVortex(struct Sprite *sprite);
 void AnimFallingRock(struct Sprite *sprite);
 void AnimRaiseSprite(struct Sprite *sprite);
@@ -556,6 +567,9 @@ void SpriteCB_RandomCentredHits(struct Sprite *sprite);
 void InitSpritePosToAnimTargetsCentre(struct Sprite *sprite, bool32 respectMonPicOffsets);
 extern const union AffineAnimCmd *const gSpriteAffineAnimTable_PrimalSymbol[];
 extern const union AffineAnimCmd *const gSpriteAffineAnimTable_MegaSymbol[];
+
+// battle_anim_ice.c
+void AnimIceBeamParticle(struct Sprite *sprite);
 
 // battle_anim_bug.c
 void AnimTranslateStinger(struct Sprite *sprite);

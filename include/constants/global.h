@@ -41,8 +41,18 @@
 #define LANGUAGE_SPANISH  7
 #define NUM_LANGUAGES     7
 
-#define GAME_VERSION (VERSION_EMERALD)
+#ifdef FIRERED
+    #define GAME_VERSION (VERSION_FIRE_RED)
+#else
+    #ifdef LEAFGREEN
+    #define GAME_VERSION (VERSION_LEAF_GREEN)
+    #else
+    #define GAME_VERSION (VERSION_EMERALD)
+    #endif
+#endif
 #define GAME_LANGUAGE (LANGUAGE_ENGLISH)
+
+#define IS_FRLG (GAME_VERSION == VERSION_FIRE_RED || GAME_VERSION == VERSION_LEAF_GREEN)
 
 // party sizes
 #define PARTY_SIZE 6
@@ -63,11 +73,6 @@
 #define SECRET_BASES_COUNT 20
 #define POKE_NEWS_COUNT 16
 #define PC_ITEMS_COUNT 50
-#define BAG_ITEMS_COUNT 30
-#define BAG_KEYITEMS_COUNT 30
-#define BAG_POKEBALLS_COUNT 16
-#define BAG_TMHM_COUNT 64
-#define BAG_BERRIES_COUNT 46
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define DECOR_MAX_SECRET_BASE 16
 #define DECOR_MAX_PLAYERS_HOUSE 12
@@ -80,6 +85,13 @@
 #define SAVED_TRENDS_COUNT 5
 #define PYRAMID_BAG_ITEMS_COUNT 10
 #define ROAMER_COUNT 1 // Number of maximum concurrent active roamers
+
+// Bag constants
+#define BAG_ITEMS_COUNT 30
+#define BAG_KEYITEMS_COUNT 30
+#define BAG_POKEBALLS_COUNT 16
+#define BAG_TMHM_COUNT 64
+#define BAG_BERRIES_COUNT 46
 
 // Number of facilities for Ranking Hall.
 // 7 facilities for single mode + tower double mode + tower multi mode.

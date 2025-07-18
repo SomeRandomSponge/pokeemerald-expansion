@@ -122,7 +122,7 @@ bool32 CanUseZMove(u32 battler)
         return FALSE;
 
     // Add '| BATTLE_TYPE_FRONTIER' to below if issues occur
-    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_WALLY_TUTORIAL))
+    if (gBattleTypeFlags & (BATTLE_TYPE_SAFARI | BATTLE_TYPE_CATCH_TUTORIAL))
         return FALSE;
 
     // Check if Trainer has already used a Z-Move.
@@ -486,9 +486,9 @@ void SetZEffect(void)
         break;
     }
     case Z_EFFECT_BOOST_CRITS:
-        if (!(gBattleMons[gBattlerAttacker].status2 & STATUS2_FOCUS_ENERGY_ANY))
+        if (!(gBattleMons[gBattlerAttacker].volatiles.dragonCheer || gBattleMons[gBattlerAttacker].volatiles.focusEnergy))
         {
-            gBattleMons[gBattlerAttacker].status2 |= STATUS2_FOCUS_ENERGY;
+            gBattleMons[gBattlerAttacker].volatiles.focusEnergy = TRUE;
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_Z_BOOST_CRITS;
             BattleScriptPush(gBattlescriptCurrInstr + Z_EFFECT_BS_LENGTH);
             gBattlescriptCurrInstr = BattleScript_ZEffectPrintString;
@@ -549,7 +549,8 @@ u32 GetZMovePower(u32 move)
 {
     if (GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return 0;
-    if (GetMoveEffect(move) == EFFECT_OHKO)
+    enum BattleMoveEffects moveEffect = GetMoveEffect(move);
+    if (moveEffect == EFFECT_OHKO || moveEffect == EFFECT_SHEER_COLD)
         return 180;
 
     u32 power = GetMoveZPowerOverride(move);
@@ -568,4 +569,3 @@ u32 GetZMovePower(u32 move)
     else if (power >= 60)  return 120;
     else                   return 100;
 }
-
