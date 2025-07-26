@@ -1,4 +1,3 @@
-//#include "game_corner_blackjack.h"
 #include "derby.h"
 #include "global.h"
 #include "malloc.h"
