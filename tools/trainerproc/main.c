@@ -149,6 +149,12 @@ struct Trainer
 
     struct String pool_prune;
     int pool_prune_line;
+
+    struct String copy_pool;
+    int copy_pool_line;
+
+    struct String macro;
+    int macro_line;
 };
 
 static bool is_empty_string(struct String s)
