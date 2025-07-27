@@ -37,6 +37,7 @@
 #include "pokemon_storage_system.h"
 #include "random.h"
 #include "recorded_battle.h"
+#include "regions.h"
 #include "rtc.h"
 #include "sound.h"
 #include "string_util.h"
@@ -6170,6 +6171,11 @@ u16 GetBattleBGM(void)
             return MUS_VS_RIVAL;
         case TRAINER_CLASS_ELITE_FOUR:
             return MUS_VS_ELITE_FOUR;
+        case TRAINER_CLASS_CHAMPION_FRLG:
+            return MUS_RG_VS_CHAMPION;
+        case TRAINER_CLASS_LEADER_FRLG:
+        case TRAINER_CLASS_ELITE_FOUR_FRLG:
+            return MUS_RG_VS_GYM_LEADER;
         case TRAINER_CLASS_SALON_MAIDEN:
         case TRAINER_CLASS_DOME_ACE:
         case TRAINER_CLASS_PALACE_MAVEN:
@@ -6179,12 +6185,18 @@ u16 GetBattleBGM(void)
         case TRAINER_CLASS_PYRAMID_KING:
             return MUS_VS_FRONTIER_BRAIN;
         default:
-            return MUS_VS_TRAINER;
+            if (GetCurrentRegion() == REGION_KANTO)
+                return MUS_RG_VS_TRAINER;
+            else
+                return MUS_VS_TRAINER;
         }
     }
     else
     {
-        return MUS_VS_WILD;
+        if (GetCurrentRegion() == REGION_KANTO)
+            return MUS_RG_VS_WILD;
+        else
+            return MUS_VS_WILD;
     }
 }
 
@@ -7163,8 +7175,8 @@ bool32 TryFormChange(u32 monId, u32 side, enum FormChanges method)
     u32 currentSpecies = GetMonData(&party[monId], MON_DATA_SPECIES);
     u32 targetSpecies = GetFormChangeTargetSpecies(&party[monId], method, 0);
 
-    if (targetSpecies == currentSpecies && gBattleStruct != NULL && gBattleStruct->changedSpecies[side][monId] != SPECIES_NONE)
-        targetSpecies = gBattleStruct->changedSpecies[side][monId];
+    if (targetSpecies == currentSpecies && gBattleStruct != NULL && gBattleStruct->partyState[side][monId].changedSpecies != SPECIES_NONE)
+        targetSpecies = gBattleStruct->partyState[side][monId].changedSpecies;
 
     if (targetSpecies != currentSpecies)
     {
