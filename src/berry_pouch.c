@@ -214,12 +214,12 @@ static const struct BgTemplate sBgTemplates[] =
 
 static const TaskFunc sBerryPouchContextMenuTasks[] =
 {
-    [BERRYPOUCH_FROMFIELD] = Task_NormalContextMenu,
-    [BERRYPOUCH_FROMPARTYGIVE] = Task_ContextMenu_FromPartyGiveMenu,
-    [BERRYPOUCH_FROMMARTSELL] = Task_ContextMenu_Sell,
-    [BERRYPOUCH_FROMPOKEMONSTORAGEPC] = Task_ContextMenu_FromPokemonPC,
-    [BERRYPOUCH_FROMBATTLE] = Task_NormalContextMenu,
-    [BERRYPOUCH_FROMBERRYCRUSH] = Task_NormalContextMenu,
+    [BERRYPOUCH_FIELD] = Task_NormalContextMenu,
+    [BERRYPOUCH_GIVE_PARTY] = Task_ContextMenu_FromPartyGiveMenu,
+    [BERRYPOUCH_SELL] = Task_ContextMenu_Sell,
+    [BERRYPOUCH_GIVE_PC] = Task_ContextMenu_FromPokemonPC,
+    [BERRYPOUCH_BATTLE] = Task_NormalContextMenu,
+    [BERRYPOUCH_BERRY_BLENDER_CRUSH] = Task_NormalContextMenu,
 };
 
 static const struct YesNoFuncTable sYesNoFuncs_Toss =
@@ -829,7 +829,7 @@ static void SetUpListMenuTemplate(void)
     sListMenuItems[i].name = sText_Close;
     sListMenuItems[i].id = i;
     gMultiuseListMenuTemplate.items = sListMenuItems;
-    if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+    if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
         gMultiuseListMenuTemplate.totalItems = sBerryPouchDynamicResources->listMenuNumItems + 1;
     else
         gMultiuseListMenuTemplate.totalItems = sBerryPouchDynamicResources->listMenuNumItems;
@@ -942,7 +942,7 @@ static void SetDescriptionWindowBorderPalette(s32 pal)
 
 static void CreateScrollIndicatorArrows_BerryPouchList(void)
 {
-    if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+    if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
         sBerryPouchDynamicResources->indicatorTaskId = AddScrollIndicatorArrowPairParameterized(2, 160, 8, 120, sBerryPouchDynamicResources->listMenuNumItems - sBerryPouchDynamicResources->listMenuMaxShowed + 1, 110, 110, &sBerryPouchStaticResources.listMenuScrollOffset);
     else
         sBerryPouchDynamicResources->indicatorTaskId = AddScrollIndicatorArrowPairParameterized(2, 160, 8, 120, sBerryPouchDynamicResources->listMenuNumItems - sBerryPouchDynamicResources->listMenuMaxShowed, 110, 110, &sBerryPouchStaticResources.listMenuScrollOffset);
@@ -984,7 +984,7 @@ void BerryPouch_CursorResetToTop(void)
 static void SanitizeListMenuSelectionParams(void)
 {
     s32 itemCount;
-    if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+    if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
         itemCount = sBerryPouchDynamicResources->listMenuNumItems + 1;
     else
         itemCount = sBerryPouchDynamicResources->listMenuNumItems;
@@ -1003,7 +1003,7 @@ static void UpdateListMenuScrollOffset(void)
 {
     u8 lim;
     u8 i;
-    if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+    if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
         lim = sBerryPouchDynamicResources->listMenuNumItems + 1;
     else
         lim = sBerryPouchDynamicResources->listMenuNumItems;
@@ -1063,7 +1063,7 @@ static void SortAndCountBerries(void)
     for (u32 i = 0; i < pocket->capacity && GetBerryPouchItemIdByPosition(i); i++)
         sBerryPouchDynamicResources->listMenuNumItems++;
 
-    if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+    if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
         itemCount = sBerryPouchDynamicResources->listMenuNumItems + 1;
     else
         itemCount = sBerryPouchDynamicResources->listMenuNumItems;
@@ -1105,8 +1105,8 @@ static void PrintxQuantityOnWindow(u8 whichWindow, s16 quantity, u8 ndigits)
 static inline bool32 CanMoveItemsBerryPouch(void)
 {
     // Swaps can only be done from the field or in battle (as opposed to while selling items, for example)
-    if (sBerryPouchStaticResources.type == BERRYPOUCH_FROMFIELD
-     || sBerryPouchStaticResources.type == BERRYPOUCH_FROMBATTLE)
+    if (sBerryPouchStaticResources.type == BERRYPOUCH_FIELD
+     || sBerryPouchStaticResources.type == BERRYPOUCH_BATTLE)
     {
         return TRUE;
     }
@@ -1164,7 +1164,7 @@ static void Task_BerryPouchMain(u8 taskId)
             case LIST_NOTHING_CHOSEN:
                 return;
             case LIST_CANCEL:
-                if (sBerryPouchStaticResources.type != BERRYPOUCH_FROMBERRYCRUSH)
+                if (sBerryPouchStaticResources.type != BERRYPOUCH_BERRY_BLENDER_CRUSH)
                 {
                     PlaySE(SE_SELECT);
                     gSpecialVar_ItemId = 0;
@@ -1174,7 +1174,7 @@ static void Task_BerryPouchMain(u8 taskId)
                 break;
             default:
                 PlaySE(SE_SELECT);
-                if (sBerryPouchStaticResources.type == BERRYPOUCH_FROMBERRYTREE)
+                if (sBerryPouchStaticResources.type == BERRYPOUCH_BERRY_TREE)
                 {
                     gSpecialVar_ItemId = GetBerryPouchItemIdByPosition(menuInput);
                     sIsInBerryPouch = FALSE;
@@ -1215,7 +1215,7 @@ static void CreateNormalContextMenu(u8 taskId)
     u8 windowId;
     u8 windowId2;
 
-    if (sBerryPouchStaticResources.type == BERRYPOUCH_FROMBATTLE)
+    if (sBerryPouchStaticResources.type == BERRYPOUCH_BATTLE)
     {
         if (GetItemBattleUsage(gSpecialVar_ItemId))
         {
@@ -1228,7 +1228,7 @@ static void CreateNormalContextMenu(u8 taskId)
             sContextMenuNumOptions = ARRAY_COUNT(sOptions_Exit);
         }
     }
-    else if (sBerryPouchStaticResources.type == BERRYPOUCH_FROMBERRYCRUSH)
+    else if (sBerryPouchStaticResources.type == BERRYPOUCH_BERRY_BLENDER_CRUSH)
     {
         sContextMenuOptions = sOptions_ConfirmCheckExit;
         sContextMenuNumOptions = ARRAY_COUNT(sOptions_ConfirmCheckExit);
@@ -1354,7 +1354,7 @@ static void Task_BerryPouch_Use(u8 taskId)
     PutWindowTilemap(BP_WINDOW_DESCRIPTION);
     ScheduleBgCopyTilemapToVram(0);
     ScheduleBgCopyTilemapToVram(2);
-    if (sBerryPouchStaticResources.type == BERRYPOUCH_FROMBATTLE)
+    if (sBerryPouchStaticResources.type == BERRYPOUCH_BATTLE)
     {
         // Safety check
         u16 type = GetItemType(gSpecialVar_ItemId);

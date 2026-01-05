@@ -1629,7 +1629,7 @@ void ItemUseOutOfBattle_TownMap(u8 taskId)
 
 static void InitBerryPouchFromBag(void)
 {
-    InitBerryPouch(BERRYPOUCH_FROMFIELD, CB2_BagMenuFromStartMenu, FALSE);
+    InitBerryPouch(BERRYPOUCH_FIELD, CB2_BagMenuFromStartMenu, FALSE);
 }
 
 static void Task_OpenRegisteredBerryPouch(u8 taskId)
@@ -1637,7 +1637,7 @@ static void Task_OpenRegisteredBerryPouch(u8 taskId)
     if (!gPaletteFade.active)
     {
         CleanupOverworldWindowsAndTilemaps();
-        InitBerryPouch(BERRYPOUCH_FROMFIELD, CB2_ReturnToField, TRUE);
+        InitBerryPouch(BERRYPOUCH_FIELD, CB2_ReturnToField, TRUE);
         DestroyTask(taskId);
     }
 }

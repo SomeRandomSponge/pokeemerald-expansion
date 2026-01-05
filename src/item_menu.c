@@ -621,7 +621,7 @@ void CB2_BagMenuFromBattle(void)
 void CB2_ChooseBerry(void)
 {
     if (FRLG_I_ADD_BERRY_POUCH_WITH_BERRIES)
-        InitBerryPouch(BERRYPOUCH_FROMBERRYTREE, CB2_ReturnToFieldContinueScript, FALSE);
+        InitBerryPouch(BERRYPOUCH_BERRY_TREE, CB2_ReturnToFieldContinueScript, FALSE);
     else
         GoToBagMenu(ITEMMENULOCATION_BERRY_TREE, POCKET_BERRIES, CB2_ReturnToFieldContinueScript);
 }
@@ -2147,7 +2147,7 @@ static void ItemMenu_Cancel(u8 taskId)
 
 static void InitBerryPouchFromBattle(void)
 {
-    InitBerryPouch(BERRYPOUCH_FROMBATTLE, CB2_BagMenuFromBattle, FALSE);
+    InitBerryPouch(BERRYPOUCH_BATTLE, CB2_BagMenuFromBattle, FALSE);
 }
 
 static void ItemMenu_UseInBattle(u8 taskId)
@@ -2184,7 +2184,7 @@ static void GoToTMCase_Give(void)
 
 static void GoToBerryPouch_Give(void)
 {
-    InitBerryPouch(BERRYPOUCH_FROMPARTYGIVE, CB2_SelectBagItemToGive, FALSE);
+    InitBerryPouch(BERRYPOUCH_GIVE_PARTY, CB2_SelectBagItemToGive, FALSE);
 }
 
 static void Task_ItemContext_GiveToParty(u8 taskId)
@@ -2231,7 +2231,7 @@ static void GoToTMCase_PCBox(void)
 
 static void GoToBerryPouch_PCBox(void)
 {
-    InitBerryPouch(BERRYPOUCH_FROMPOKEMONSTORAGEPC, ReturnToBagMenuFromSubmenu_PCBox, FALSE);
+    InitBerryPouch(BERRYPOUCH_GIVE_PC, ReturnToBagMenuFromSubmenu_PCBox, FALSE);
 }
 
 // Selected item to give to a Pokémon in PC storage
@@ -2302,7 +2302,7 @@ static void GoToTMCase_Sell(void)
 
 static void GoToBerryPouch_Sell(void)
 {
-    InitBerryPouch(BERRYPOUCH_FROMMARTSELL, CB2_GoToSellMenu, FALSE);
+    InitBerryPouch(BERRYPOUCH_SELL, CB2_GoToSellMenu, FALSE);
 }
 
 static void Task_ItemContext_Sell(u8 taskId)
