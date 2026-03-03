@@ -34,6 +34,7 @@
 #include "international_string_util.h"
 #include "item.h"
 #include "item_menu.h"
+#include "item_menu_frlg.h"
 #include "item_pc_rg.h"
 #include "item_use.h"
 #include "caps.h"
@@ -4661,10 +4662,12 @@ static void CB2_ReturnToBagMenu(void)
         CB2_ReturnToTMCaseMenu();
     else if (CheckIfInBerryPouch())
         CB2_ReturnToBerryPouchMenu();
-    else if (CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE)
-        GoToBagMenu(ITEMMENULOCATION_LAST, POCKETS_COUNT, NULL);
-    else
+    else if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
         GoToBattlePyramidBagMenu(PYRAMIDBAG_LOC_PREV, gPyramidBagMenuState.exitCallback);
+    else if (FRLG_I_USE_FRLG_BAG)
+        GoToBagMenuFrlg(ITEMMENULOCATION_LAST, OPEN_BAG_LAST, NULL);
+    else
+        GoToBagMenu(ITEMMENULOCATION_LAST, POCKETS_COUNT, NULL);
 }
 
 static void Task_SetSacredAshCB(u8 taskId)
