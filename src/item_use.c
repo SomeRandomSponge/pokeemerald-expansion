@@ -969,8 +969,8 @@ static void RemoveUsedItem(void)
     {
         if (FRLG_I_USE_FRLG_BAG)
         {
-            Pocket_CalculateNItemsAndMaxShowed(GetItemPocket(gSpecialVar_ItemId));
-            PocketCalculateInitialCursorPosAndItemsAbove(GetItemPocket(gSpecialVar_ItemId));
+            UpdatePocketItemListFrlg(GetItemPocket(gSpecialVar_ItemId));
+            UpdatePocketListPositionFrlg(GetItemPocket(gSpecialVar_ItemId));
         }
         else
         {

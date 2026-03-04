@@ -24,8 +24,8 @@ struct BagStruct
     bool8 bagOpen;
     u16 pocket;
     u16 bagTab;
-    u16 itemsAbove[FRLG_POCKET_COUNT];
     u16 cursorPos[FRLG_POCKET_COUNT];
+    u16 scrollPosition[FRLG_POCKET_COUNT];
 };
 
 extern struct BagStruct gBagMenuState;
@@ -41,10 +41,9 @@ void Bag_BeginCloseWin0Animation(void);
 void ItemMenu_SetExitCallback(void (*)(void));
 void DisplayItemMessageFrlg(u8 taskId, u8 fontId, const u8 * string, TaskFunc followUpFunc);
 void Task_ReturnToBagFromContextMenu(u8 taskId);
-void CB2_BagMenuFromBattleFrlg(void);
 void InitOldManBagFrlg(void);
-void Pocket_CalculateNItemsAndMaxShowed(u8 pocketId);
-void PocketCalculateInitialCursorPosAndItemsAbove(u8 pocketId);
+void UpdatePocketItemListFrlg(u8 pocketId);
+void UpdatePocketListPositionFrlg(u8 pocketId);
 void GoToBagMenuFrlg(u8 menuType, u8 pocket, MainCallback callback);
 
 #endif //GUARD_ITEM_MENU_FRLG_H
