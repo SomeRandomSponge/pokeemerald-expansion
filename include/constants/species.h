@@ -1686,7 +1686,16 @@
 #define SPECIES_TATSUGIRI_CURLY_MEGA                    1569
 #define SPECIES_TATSUGIRI_DROOPY_MEGA                   1570
 #define SPECIES_TATSUGIRI_STRETCHY_MEGA                 1571
-#define SPECIES_GLIMMORA_MEGA                           1572
+#define SPECIES_NIDORAN_JOINED                          SPECIES_NIDORAN_MALE
+#define SPECIES_NIDORAN_MALE                            1572
+#define SPECIES_NIDORAN_FEMALE                          1573
+#define SPECIES_NIDORINORINA                            SPECIES_NIDORINO_J
+#define SPECIES_NIDORINO_J                              1574
+#define SPECIES_NIDORINA_J                              1575
+#define SPECIES_NIDOKINGQUEEN                           SPECIES_NIDOKING_J
+#define SPECIES_NIDOKING_J                              1577
+#define SPECIES_NIDOQUEEN_J                             1578
+#define SPECIES_GLIMMORA_MEGA                           1579
 
 #define SPECIES_EGG                                     (SPECIES_GLIMMORA_MEGA + 1)
 
