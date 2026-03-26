@@ -27503,6 +27503,75 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_PECHARUNT
 
+    
+    const u32 gMonFrontPic_Gorochu[] = INCBIN_U32("graphics/pokemon/gorochu/front.4bpp.smol");
+    const u16 gMonPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/normal.gbapal");
+    const u32 gMonBackPic_Gorochu[] = INCBIN_U32("graphics/pokemon/gorochu/back.4bpp.smol");
+    const u16 gMonShinyPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/shiny.gbapal");
+    const u8 gMonIcon_Gorochu[] = INCBIN_U8("graphics/pokemon/gorochu/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Gorochu[] = INCBIN_U8("graphics/pokemon/gorochu/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Gorochu[] = INCBIN_COMP("graphics/pokemon/gorochu/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+    
+    const u32 gMonFrontPic_Turbann[] = INCBIN_U32("graphics/pokemon/turbann/front.4bpp.smol");
+    const u16 gMonPalette_Turbann[] = INCBIN_U16("graphics/pokemon/turbann/normal.gbapal");
+    const u32 gMonBackPic_Turbann[] = INCBIN_U32("graphics/pokemon/turbann/back.4bpp.smol");
+    const u16 gMonShinyPalette_Turbann[] = INCBIN_U16("graphics/pokemon/turbann/shiny.gbapal");
+    const u8 gMonIcon_Turbann[] = INCBIN_U8("graphics/pokemon/turbann/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Turbann[] = INCBIN_U8("graphics/pokemon/turbann/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Turbann[] = INCBIN_COMP("graphics/pokemon/turbann/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Turbann[] = INCBIN_U16("graphics/pokemon/turbann/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_Turbann[] = INCBIN_U16("graphics/pokemon/turbann/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+
+    const u32 gMonFrontPic_Nimbeon[] = INCBIN_U32("graphics/pokemon/nimbeon/front.4bpp.smol");
+    const u16 gMonPalette_Nimbeon[] = INCBIN_U16("graphics/pokemon/nimbeon/normal.gbapal");
+    const u32 gMonBackPic_Nimbeon[] = INCBIN_U32("graphics/pokemon/nimbeon/back.4bpp.smol");
+    const u16 gMonShinyPalette_Nimbeon[] = INCBIN_U16("graphics/pokemon/nimbeon/shiny.gbapal");
+    const u8 gMonIcon_Nimbeon[] = INCBIN_U8("graphics/pokemon/nimbeon/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Nimbeon[] = INCBIN_U8("graphics/pokemon/nimbeon/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Nimbeon[] = INCBIN_COMP("graphics/pokemon/nimbeon/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Nimbeon[] = INCBIN_U16("graphics/pokemon/nimbeon/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_Nimbeon[] = INCBIN_U16("graphics/pokemon/nimbeon/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+
+    const u32 gMonFrontPic_Titaneon[] = INCBIN_U32("graphics/pokemon/titaneon/front.4bpp.smol");
+    const u16 gMonPalette_Titaneon[] = INCBIN_U16("graphics/pokemon/titaneon/normal.gbapal");
+    const u32 gMonBackPic_Titaneon[] = INCBIN_U32("graphics/pokemon/titaneon/back.4bpp.smol");
+    const u16 gMonShinyPalette_Titaneon[] = INCBIN_U16("graphics/pokemon/titaneon/shiny.gbapal");
+    const u8 gMonIcon_Titaneon[] = INCBIN_U8("graphics/pokemon/titaneon/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Titaneon[] = INCBIN_U8("graphics/pokemon/titaneon/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Titaneon[] = INCBIN_COMP("graphics/pokemon/titaneon/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u16 gOverworldPalette_Titaneon[] = INCBIN_U16("graphics/pokemon/titaneon/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_Titaneon[] = INCBIN_U16("graphics/pokemon/titaneon/overworld_shiny.gbapal");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.smol");
     const u16 gMonPalette_Egg[] = INCBIN_U16("graphics/pokemon/egg/normal.gbapal");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");

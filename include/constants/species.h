@@ -1695,7 +1695,11 @@
 #define SPECIES_NIDOKINGQUEEN                           SPECIES_NIDOKING_J
 #define SPECIES_NIDOKING_J                              1577
 #define SPECIES_NIDOQUEEN_J                             1578
-#define SPECIES_GLIMMORA_MEGA                           1579
+#define SPECIES_GOROCHU                                 1579
+#define SPECIES_TURBANN                                 1580
+#define SPECIES_NIMBEON                                 1581
+#define SPECIES_TITANEON                                1582
+#define SPECIES_GLIMMORA_MEGA                           1583
 #define SPECIES_EGG                                     (SPECIES_GLIMMORA_MEGA + 1)
 
 #define NUM_SPECIES SPECIES_EGG
