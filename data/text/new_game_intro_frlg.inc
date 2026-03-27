@@ -1,128 +1,128 @@
 gOtherText_NewName::
-	.string "NEW NAME$"
+	.string "New Name$"
 
 gNameChoice_Green::
-	.string "GREEN$"
+	.string "Green$"
 
 gNameChoice_Red::
-	.string "RED$"
+	.string "Red$"
 
 gNameChoice_Leaf::
-	.string "LEAF$"
+	.string "Leaf$"
 
 gNameChoice_Fire::
-	.string "FIRE$"
+	.string "Fire$"
 
 gNameChoice_Gary::
-	.string "GARY$"
+	.string "Gary$"
 
 gNameChoice_Kaz::
-	.string "KAZ$"
+	.string "Blue$"
 
 gNameChoice_Toru::
-	.string "TORU$"
+	.string "Toru$"
 
 gNameChoice_Ash::
-	.string "ASH$"
+	.string "Ash$"
 
 gNameChoice_Kene::
-	.string "KENE$"
+	.string "Kene$"
 
 gNameChoice_Geki::
-	.string "GEKI$"
+	.string "Geki$"
 
 gNameChoice_Jak::
-	.string "JAK$"
+	.string "Jak$"
 
 gNameChoice_Janne::
-	.string "JANNE$"
+	.string "Janne$"
 
 gNameChoice_Jonn::
-	.string "JONN$"
+	.string "Jonn$"
 
 gNameChoice_Kamon::
-	.string "KAMON$"
+	.string "Kamon$"
 
 gNameChoice_Karl::
-	.string "KARL$"
+	.string "Karl$"
 
 gNameChoice_Taylor::
-	.string "TAYLOR$"
+	.string "Taylor$"
 
 gNameChoice_Oscar::
-	.string "OSCAR$"
+	.string "Oscar$"
 
 gNameChoice_Hiro::
-	.string "HIRO$"
+	.string "Hiro$"
 
 gNameChoice_Max::
-	.string "MAX$"
+	.string "Max$"
 
 gNameChoice_Jon::
-	.string "JON$"
+	.string "Jon$"
 
 gNameChoice_Ralph::
-	.string "RALPH$"
+	.string "Ralph$"
 
 gNameChoice_Kay::
-	.string "KAY$"
+	.string "Kay$"
 
 gNameChoice_Tosh::
-	.string "TOSH$"
+	.string "Tosh$"
 
 gNameChoice_Roak::
-	.string "ROAK$"
+	.string "Roak$"
 
 gNameChoice_Omi::
-	.string "OMI$"
+	.string "Omi$"
 
 gNameChoice_Jodi::
-	.string "JODI$"
+	.string "Jodi$"
 
 gNameChoice_Amanda::
-	.string "AMANDA$"
+	.string "Amanda$"
 
 gNameChoice_Hillary::
-	.string "HILLARY$"
+	.string "Hillary$"
 
 gNameChoice_Makey::
-	.string "MAKEY$"
+	.string "Makey$"
 
 gNameChoice_Michi::
-	.string "MICHI$"
+	.string "Michi$"
 
 gNameChoice_Paula::
-	.string "PAULA$"
+	.string "Paula$"
 
 gNameChoice_June::
-	.string "JUNE$"
+	.string "June$"
 
 gNameChoice_Cassie::
-	.string "CASSIE$"
+	.string "Cassie$"
 
 gNameChoice_Rey::
-	.string "REY$"
+	.string "Rey$"
 
 gNameChoice_Seda::
-	.string "SEDA$"
+	.string "Seda$"
 
 gNameChoice_Kiko::
-	.string "KIKO$"
+	.string "Kiko$"
 
 gNameChoice_Mina::
-	.string "MINA$"
+	.string "Mina$"
 
 gNameChoice_Norie::
-	.string "NORIE$"
+	.string "Norie$"
 
 gNameChoice_Sai::
-	.string "SAI$"
+	.string "Sai$"
 
 gNameChoice_Momo::
-	.string "MOMO$"
+	.string "Momo$"
 
 gNameChoice_Suzi::
-	.string "SUZI$"
+	.string "Suzi$"
 
 gControlsGuide_Text_Intro::
 	.string "The various buttons will be explained in\n"
@@ -163,10 +163,9 @@ gPikachuIntro_Text_Page1::
 	.string "enter, you will embark on a grand\n"
 	.string "adventure with you as the hero.\n"
 	.string "\n"
-	.string "Speak to people and check things\n"
-	.string "wherever you go, be it towns, roads,\n"
-	.string "or caves. Gather information and\n"
-	.string "hints from every source.$"
+	.string "Some things may be different\n"
+	.string "from what you remember, but you\n"
+	.string "already knew that, right?$"
 
 gPikachuIntro_Text_Page2::
 	.string "New paths will open to you by helping\n"
@@ -175,20 +174,19 @@ gPikachuIntro_Text_Page2::
 	.string "\n"
 	.string "At times, you will be challenged by\n"
 	.string "others and attacked by wild creatures.\n"
-	.string "Be brave and keep pushing on.$"
+	.string "Git gud.$"
 
 gPikachuIntro_Text_Page3::
-	.string "Through your adventure, we hope\n"
-	.string "that you will interact with all sorts\n"
-	.string "of people and achieve personal growth.\n"
-	.string "That is our biggest objective.\n"
-	.string "\n"
+	.string "I hope that this romhack experience\n"
+	.string "is “refresing” enough, and mostly,\n"
+	.string "still fun while accomplishing what I\n"
+	.string "set out to do with it.\n"
+	.string "That was my biggest objective.\n"
 	.string "Press the A Button, and let your\n"
 	.string "adventure begin!$"
 
 gOakSpeech_Text_WelcomeToTheWorld::
-	.string "Hello, there!\n"
-	.string "Glad to meet you!\p"
+	.string "Hello, there! Glad to meet you!\p"
 	.string "Welcome to the world of POKéMON!\p"
 	.string "My name is OAK.\p"
 	.string "People affectionately refer to me\n"
@@ -221,18 +219,19 @@ gOakSpeech_Text_SoYourNameIsPlayer::
 
 gOakSpeech_Text_WhatWasHisName::
 	.string "This is my grandson.\p"
-	.string "He's been your rival since you both\n"
-	.string "were babies.\p"
-	.string "…Erm, what was his name now?$"
+	.string "He's been your rival for a long\n"
+	.string "time now.\p"
+	.string "Surely that rings a bell.$"
 
 gOakSpeech_Text_YourRivalsNameWhatWasIt::
-	.string "Your rival's name, what was it now?$"
+	.string "Remembered your rival's name?$"
 
 gOakSpeech_Text_ConfirmRivalName::
-	.string "…Er, was it {RIVAL}?$"
+	.string "…{RIVAL}, you say?$"
 
 gOakSpeech_Text_RememberRivalsName::
-	.string "That's right! I remember now!\n"
+	.string "That's right!\n"
+	.string "He wouldn't let you forget it.\l"
 	.string "His name is {RIVAL}!\p$"
 
 gOakSpeech_Text_LetsGo::
