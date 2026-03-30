@@ -86,7 +86,8 @@ Text_TakeYourPkmnForFewSeconds_Frlg::
 	.string "few seconds.$"
 
 Text_WeHopeToSeeYouAgain_Frlg::
-	.string "We hope to see you again!$"
+	.string "Please make use of our services\n"
+	.string "again anytime!$"
 
 Text_RestoredPkmnToFullHealth_Frlg::
 	.string "Thank you for waiting.\n"
