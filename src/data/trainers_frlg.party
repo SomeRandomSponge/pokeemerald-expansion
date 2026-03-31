@@ -6838,7 +6838,7 @@ Gender: Male
 Music: Elite Four
 Items: Full Restore / Full Restore
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Switching / Know Opponent Party / Smart Mon Choices / Predict Switch / Predict Incoming Mon / Randomize Switchin
 Mugshot: Purple
 
 Dewgong
@@ -6889,7 +6889,7 @@ Gender: Male
 Music: Elite Four
 Items: Full Restore / Full Restore
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Switching / Know Opponent Party / Smart Mon Choices / Predict Switch / Predict Incoming Mon / Randomize Switchin
 Mugshot: Green
 
 Onix
@@ -6940,7 +6940,7 @@ Gender: Male
 Music: Elite Four
 Items: Full Restore / Full Restore
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Switching / Know Opponent Party / Smart Mon Choices / Predict Switch / Predict Incoming Mon / Randomize Switchin
 Mugshot: Pink
 
 Gengar
@@ -6991,7 +6991,7 @@ Gender: Male
 Music: Elite Four
 Items: Full Restore / Full Restore
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Switching / Know Opponent Party / Smart Mon Choices / Predict Switch / Predict Incoming Mon / Randomize Switchin
 Mugshot: Blue
 
 Gyarados
@@ -7042,6 +7042,8 @@ Gender: Male
 Music: Male
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability
+Party Size: 2
+Pool Rules: Basic
 
 Geodude
 Level: 12
@@ -7049,9 +7051,18 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 - Tackle
 - Defense Curl
 
+Omanyte
+Level: 12
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+Kabuto
+Level: 12
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
 Onix
 Level: 14
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+Tags: Ace
 - Tackle
 - Bind
 - Rock Tomb
@@ -7899,7 +7910,7 @@ Gender: Male
 Music: Male
 Items: Full Restore / Full Restore / Full Restore / Full Restore
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Switching / Know Opponent Party / Smart Mon Choices / Predict Switch / Predict Incoming Mon / Randomize Switchin
 Mugshot: Yellow
 
 Pidgeot
