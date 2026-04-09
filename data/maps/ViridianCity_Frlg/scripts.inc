@@ -259,10 +259,10 @@ ViridianCity_Text_ExplainCaterpieWeedle::
 	.string "stabbed by WEEDLE's POISON STING.$"
 
 ViridianCity_Text_GrandpaHasntHadCoffeeYet::
-	.string "Oh, Grandpa!\n"
-	.string "Don't be so mean!\p"
+	.string "Good grief, Grandpa!\n"
+	.string "Sleeping here of all places!\p"
 	.string "I'm so sorry.\n"
-	.string "He hasn't had his coffee yet.$"
+	.string "We have to wait until he sobers up...$"
 
 ViridianCity_Text_GoShoppingInPewterOccasionally::
 	.string "I go shopping in PEWTER CITY\n"

@@ -24,7 +24,7 @@ PalletTown_EventScript_SetSignLadyDone::
 
 PalletTown_EventScript_SetSignLadyPos::
 	goto_if_set FLAG_PALLET_LADY_NOT_BLOCKING_SIGN, PalletTown_EventScript_MoveSignLadyToRouteEntrance
-	setobjectxyperm LOCALID_PALLET_SIGN_LADY, 5, 15
+	setobjectxyperm LOCALID_PALLET_SIGN_LADY, 22, 10
 	setobjectmovementtype LOCALID_PALLET_SIGN_LADY, MOVEMENT_TYPE_FACE_UP
 	return
 
@@ -187,8 +187,6 @@ PalletTown_EventScript_OakTrigger::
 	waitmessage
 	delay 85
 	closemessage
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
-	waitmovement 0
 	playse SE_PIN
 	applymovement LOCALID_PLAYER, Common_Movement_ExclamationMark
 	waitmovement 0
@@ -231,41 +229,36 @@ PalletTown_EventScript_OakEnterRight::
 
 PalletTown_EventScript_OakLeadPlayerToLabLeft::
 	applymovement LOCALID_PALLET_PROF_OAK, PalletTown_Movement_OakWalkToLabLeft
+	delay 64
 	applymovement LOCALID_PLAYER, PalletTown_Movement_PlayerWalkToLabLeft
 	waitmovement 0
 	return
 
 PalletTown_EventScript_OakLeadPlayerToLabRight::
 	applymovement LOCALID_PALLET_PROF_OAK, PalletTown_Movement_OakWalkToLabRight
+	delay 32
 	applymovement LOCALID_PLAYER, PalletTown_Movement_PlayerWalkToLabRight
 	waitmovement 0
 	return
 
 PalletTown_Movement_OakEnterLeft::
-	walk_up
-	walk_up
-	walk_right
-	walk_up
-	walk_up
-	walk_right
-	walk_up
-	walk_up
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	step_end
 
 PalletTown_Movement_OakEnterRight::
 	walk_right
-	walk_up
-	walk_up
-	walk_right
-	walk_up
-	walk_up
-	walk_right
-	walk_up
-	walk_up
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
 	step_end
 
 	.macro walk_to_lab
-	walk_left
 	walk_down
 	walk_down
 	walk_down
@@ -284,13 +277,21 @@ PalletTown_Movement_OakEnterRight::
 	.endm
 
 PalletTown_Movement_OakWalkToLabLeft::
+	walk_right
 	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
 	walk_to_lab
 	walk_right
 	walk_in_place_faster_up
 	step_end
 
 PalletTown_Movement_OakWalkToLabRight::
+	walk_left
+	walk_down
+	walk_down
 	walk_down
 	walk_left
 	walk_to_lab
@@ -306,12 +307,14 @@ PalletTown_Movement_OakEnterLab::
 PalletTown_Movement_PlayerWalkToLabLeft::
 	walk_down
 	walk_down
+	walk_left
 	walk_to_lab
 	step_end
 
 PalletTown_Movement_PlayerWalkToLabRight::
 	walk_down
 	walk_down
+	walk_left
 	walk_left
 	walk_to_lab
 	step_end
@@ -449,29 +452,29 @@ PalletTown_EventScript_SignLadyStartShowSign::
 	end
 
 PalletTown_Text_OakDontGoOut::
-	.string "OAK: Hey! Wait!\n"
+	.string "{SPEAKER NAME_OAK}Hey! Wait!\n"
 	.string "Don't go out!$"
 
 PalletTown_Text_OakGrassUnsafeNeedMon::
-	.string "OAK: It's unsafe!\n"
+	.string "{SPEAKER NAME_OAK}It's unsafe!\n"
 	.string "Wild POKéMON live in tall grass!\p"
-	.string "You need your own POKéMON for\n"
-	.string "your protection.\p"
+	.string "You need your own POKéMON for your\n"
+	.string "protection.\p"
 	.string "I know!\n"
 	.string "Here, come with me!$"
 
 PalletTown_Text_RaisingMonsToo::
-	.string "I'm raising POKéMON, too.\p"
+	.string "I'm raising Pokémon, too.\p"
 	.string "When they get strong, they can\n"
 	.string "protect me.$"
 
 PalletTown_Text_CanStoreItemsAndMonsInPC::
 	.string "Technology is incredible!\p"
 	.string "You can now store and recall items\n"
-	.string "and POKéMON as data via PC.$"
+	.string "and Pokémon as data via PC.$"
 
 PalletTown_Text_OakPokemonResearchLab::
-	.string "OAK POKéMON RESEARCH LAB$"
+	.string "Oak Pokémon Research Lab$"
 
 PalletTown_Text_PlayersHouse::
 	.string "{PLAYER}'s house$"
@@ -480,7 +483,7 @@ PalletTown_Text_RivalsHouse::
 	.string "{RIVAL}'s house$"
 
 PalletTown_Text_TownSign::
-	.string "PALLET TOWN\n"
+	.string "Pallet Town\n"
 	.string "Shades of your journey await!$"
 
 PalletTown_Text_OakLetMeSeePokedex::

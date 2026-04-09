@@ -187,30 +187,30 @@ gPikachuIntro_Text_Page3::
 
 gOakSpeech_Text_WelcomeToTheWorld::
 	.string "Hello, there! Glad to meet you!\p"
-	.string "Welcome to the world of POKéMON!\p"
-	.string "My name is OAK.\p"
-	.string "People affectionately refer to me\n"
-	.string "as the POKéMON PROFESSOR.\p$"
+	.string "Welcome to the world of Pokémon!\p"
+	.string "My name is Oak.\p"
+	.string "People affectionately refer to me as\n"
+	.string "the Pokémon Professor.\p$"
 
 gOakSpeech_Text_ThisWorld::
 	.string "This world…$"
 
 gOakSpeech_Text_IsInhabitedFarAndWide::
-	.string "…is inhabited far and wide by\n"
-	.string "creatures called POKéMON.\p$"
+	.string "…is inhabited far and wide by creatures\n"
+	.string "called Pokémon.\p$"
 
 gOakSpeech_Text_IStudyPokemon::
-	.string "For some people, POKéMON are pets.\n"
+	.string "For some people, Pokémon are pets.\n"
 	.string "Others use them for battling.\p"
 	.string "As for myself…\p"
-	.string "I study POKéMON as a profession.\p$"
+	.string "I study Pokémon as a profession.\p$"
 
 gOakSpeech_Text_TellMeALittleAboutYourself::
 	.string "But first, tell me a little about\n"
 	.string "yourself.\p$"
 
 gOakSpeech_Text_YourNameWhatIsIt::
-	.string "Let's begin with your name.\n"
+	.string "Alright. Next is your name.\n"
 	.string "What is it?\p$"
 
 gOakSpeech_Text_SoYourNameIsPlayer::
@@ -219,8 +219,7 @@ gOakSpeech_Text_SoYourNameIsPlayer::
 
 gOakSpeech_Text_WhatWasHisName::
 	.string "This is my grandson.\p"
-	.string "He's been your rival for a long\n"
-	.string "time now.\p"
+	.string "He's been your rival for a long time now.\p"
 	.string "Surely that rings a bell.$"
 
 gOakSpeech_Text_YourRivalsNameWhatWasIt::
@@ -236,7 +235,7 @@ gOakSpeech_Text_RememberRivalsName::
 
 gOakSpeech_Text_LetsGo::
 	.string "{PLAYER}!\p"
-	.string "Your very own POKéMON legend is\n"
+	.string "Your very own Pokémon legend is\n"
 	.string "about to unfold!\p"
 	.string "A world of dreams and adventures\n"
-	.string "with POKéMON awaits! Let's go!$"
+	.string "with Pokémon awaits! Let's go!$"

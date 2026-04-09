@@ -77,19 +77,19 @@ Movement_Bow::
 	step_end
 
 Text_WelcomeWantToHealPkmn_Frlg::
-	.string "Welcome to our POKéMON CENTER!\p"
+	.string "{COLOR RED}{SHADOW LIGHT_RED}Welcome to our POKéMON CENTER!\p"
 	.string "Would you like me to heal your\n"
 	.string "POKéMON back to perfect health?$"
 
 Text_TakeYourPkmnForFewSeconds_Frlg::
-	.string "Okay, I'll take your POKéMON for a\n"
+	.string "{COLOR RED}{SHADOW LIGHT_RED}Okay, I'll take your POKéMON for a\n"
 	.string "few seconds.$"
 
 Text_WeHopeToSeeYouAgain_Frlg::
-	.string "Please make use of our services\n"
+	.string "{COLOR RED}{SHADOW LIGHT_RED}Please make use of our services\n"
 	.string "again anytime!$"
 
 Text_RestoredPkmnToFullHealth_Frlg::
-	.string "Thank you for waiting.\n"
+	.string "{COLOR RED}{SHADOW LIGHT_RED}Thank you for waiting.\n"
 	.string "We've restored your POKéMON to\l"
 	.string "full health.$"
