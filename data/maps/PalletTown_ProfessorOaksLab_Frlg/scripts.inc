@@ -13,6 +13,7 @@ PalletTown_ProfessorOaksLab_Frlg_MapScripts::
 
 PalletTown_ProfessorOaksLab_OnTransition::
 	setflag FLAG_VISITED_OAKS_LAB
+	call Common_EventScript_SetupRedLeafGfxId
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 1, PalletTown_ProfessorOaksLab_EventScript_ReadyOakForStarterScene
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 7, PalletTown_ProfessorOaksLab_EventScript_ReadyOakForNationalDexScene
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 8, PalletTown_ProfessorOaksLab_EventScript_SetNationalDexSceneFinished
@@ -563,6 +564,27 @@ PalletTown_ProfessorOaksLab_EventScript_RivalChoseStarter::
 	msgbox PalletTown_ProfessorOaksLab_Text_RivalMyMonLooksTougher
 	release
 	end
+
+
+PalletTown_ProfessorOaksLab_EventScript_RedLeaf::
+	lock
+	faceplayer
+	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3, PalletTown_ProfessorOaksLab_EventScript_RedLeafChoseStarter
+	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2, PalletTown_ProfessorOaksLab_EventScript_RedLeafWaitingForStarter
+	msgbox PalletTown_ProfessorOaksLab_Text_RedLeafGrampsIsntAround
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_RedLeafWaitingForStarter::
+	msgbox PalletTown_ProfessorOaksLab_Text_RedLeafGoChoosePlayer
+	release
+	end
+
+PalletTown_ProfessorOaksLab_EventScript_RedLeafChoseStarter::
+	msgbox PalletTown_ProfessorOaksLab_Text_RedLeafMyMonLooksTougher
+	release
+	end
+
 
 PalletTown_ProfessorOaksLab_EventScript_ProfOak::
 	lock
@@ -1299,35 +1321,35 @@ PalletTown_ProfessorOaksLab_EventScript_RightSignAlt::
 	end
 
 PalletTown_ProfessorOaksLab_Text_RivalGrampsIsntAround::
-	.string "{RIVAL}: What, it's only {PLAYER}?\n"
+	.string "{SPEAKER NAME_RIVAL}What, it's only you?\n"
 	.string "Gramps isn't around.$"
 
 PalletTown_ProfessorOaksLab_Text_RivalFedUpWithWaiting::
-	.string "{RIVAL}: Gramps!\n"
+	.string "{SPEAKER NAME_RIVAL}Gramps!\n"
 	.string "I'm fed up with waiting!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalNoFairWhatAboutMe::
-	.string "{RIVAL}: Hey! Gramps! No fair!\n"
+	.string "{SPEAKER NAME_RIVAL}Hey! Gramps! No fair!\n"
 	.string "What about me?$"
 
 PalletTown_ProfessorOaksLab_Text_RivalGoChoosePlayer::
-	.string "{RIVAL}: Heh, I don't need to be\n"
+	.string "{SPEAKER NAME_RIVAL}Heh, I don't need to be\n"
 	.string "greedy like you. I'm mature!\p"
 	.string "Go ahead and choose, {PLAYER}!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalIllTakeThisOneThen::
-	.string "{RIVAL}: I'll take this one, then!$"
+	.string "{SPEAKER NAME_RIVAL}I'll take this one, then!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalReceivedMonFromOak::
 	.string "{RIVAL} received the {STR_VAR_1}\n"
 	.string "from PROF. OAK!$"
 
 PalletTown_ProfessorOaksLab_Text_RivalMyMonLooksTougher::
-	.string "{RIVAL}: My POKéMON looks a lot\n"
+	.string "{SPEAKER NAME_RIVAL}My POKéMON looks a lot\n"
 	.string "tougher than yours.$"
 
 PalletTown_ProfessorOaksLab_Text_RivalLetsCheckOutMons::
-	.string "{RIVAL}: Wait, {PLAYER}!\n"
+	.string "{SPEAKER NAME_RIVAL}Wait, {PLAYER}!\n"
 	.string "Let's check out our POKéMON!\p"
 	.string "Come on, I'll take you on!$"
 
@@ -1342,7 +1364,7 @@ Text_RivalVictory::
 	.string "Am I great or what?$"
 
 PalletTown_ProfessorOaksLab_Text_RivalGoToughenMyMon::
-	.string "{RIVAL}: Okay! I'll make my\n"
+	.string "{SPEAKER NAME_RIVAL}Okay! I'll make my\n"
 	.string "POKéMON battle to toughen it up!\p"
 	.string "{PLAYER}! Gramps!\n"
 	.string "Smell you later!$"
@@ -1367,6 +1389,20 @@ PalletTown_ProfessorOaksLab_Text_RivalTellSisNotToGiveYouMap::
 	.string "{PLAYER}! Hahaha!\p"
 	.string "Don't bother coming around to\n"
 	.string "my place after this!$"
+
+PalletTown_ProfessorOaksLab_Text_RedLeafGrampsIsntAround::
+	.string "{RIVAL}: What, it's only {PLAYER}?\n"
+	.string "Gramps isn't around.$"
+
+PalletTown_ProfessorOaksLab_Text_RedLeafGoChoosePlayer::
+	.string "{RIVAL}: Heh, I don't need to be\n"
+	.string "greedy like you. I'm mature!\p"
+	.string "Go ahead and choose, {PLAYER}!$"
+
+PalletTown_ProfessorOaksLab_Text_RedLeafMyMonLooksTougher::
+	.string "{RIVAL}: My POKéMON looks a lot\n"
+	.string "tougher than yours.$"
+
 
 PalletTown_ProfessorOaksLab_Text_OakThreeMonsChooseOne::
 	.string "OAK: {RIVAL}?\n"

@@ -22,6 +22,7 @@ PalletTown_RivalsHouse_EventScript_Daisy::
 	lock
 	faceplayer
 	famechecker FAMECHECKER_DAISY, FCPICKSTATE_COLORED, UpdatePickStateFromSpecialVar8005
+	setspeaker Speaker_Daisy
 	goto_if_set FLAG_SYS_GAME_CLEAR, PalletTown_RivalsHouse_EventScript_GroomMon
 	goto_if_eq RECEIVED_TOWN_MAP, TRUE, PalletTown_RivalsHouse_EventScript_PleaseGiveMonsRest
 	goto_if_eq VAR_MAP_SCENE_PALLET_TOWN_RIVALS_HOUSE, 2, PalletTown_RivalsHouse_EventScript_ExplainTownMap
@@ -165,14 +166,17 @@ PalletTown_RivalsHouse_EventScript_Picture::
 	msgbox PalletTown_RivalsHouse_Text_LovelyAndSweetClefairy, MSGBOX_SIGN
 	end
 
+Speaker_Daisy:
+    .string "Daisy$"
+
 PalletTown_RivalsHouse_Text_HiBrothersAtLab::
-	.string "DAISY: Hi, {PLAYER}!\p"
+	.string "Hi, {PLAYER}!\p"
 	.string "My brother, {RIVAL}, is out at\n"
-	.string "Grandpa's LAB.$"
+	.string "Grandpa's Lab.$"
 
 PalletTown_RivalsHouse_Text_HeardYouBattledRival::
-	.string "DAISY: {PLAYER}, I heard you had\n"
-	.string "a battle against {RIVAL}.\p"
+	.string "{PLAYER}, I heard you had a battle\n"
+	.string "against {RIVAL}.\p"
 	.string "I wish I'd seen that!$"
 
 PalletTown_RivalsHouse_Text_ErrandForGrandpaThisWillHelp::
@@ -195,7 +199,7 @@ PalletTown_RivalsHouse_Text_ExplainTownMap::
 	.string "names of places.$"
 
 PalletTown_RivalsHouse_Text_PleaseGiveMonsRest::
-	.string "DAISY: Just like people, POKéMON\n"
+	.string "Just like people, POKéMON\n"
 	.string "are living things.\p"
 	.string "When they get tired, please give\n"
 	.string "them a rest.$"
@@ -209,7 +213,7 @@ PalletTown_RivalsHouse_Text_ShelvesCrammedFullOfBooks::
 	.string "books on POKéMON.$"
 
 PalletTown_RivalsHouse_Text_LikeMeToGroomMon::
-	.string "DAISY: Hi, {PLAYER}!\n"
+	.string "Hi, {PLAYER}!\n"
 	.string "Good timing.\p"
 	.string "I'm about to have some tea.\n"
 	.string "Would you like to join me?\p"
@@ -225,7 +229,7 @@ PalletTown_RivalsHouse_Text_GroomWhichOne::
 	.string "Which one should I groom?$"
 
 PalletTown_RivalsHouse_Text_LookingNiceInNoTime::
-	.string "DAISY: Okay, I'll get it looking\n"
+	.string "Okay, I'll get it looking\n"
 	.string "nice in no time.$"
 
 PalletTown_RivalsHouse_Text_ThereYouGoAllDone::
@@ -245,7 +249,7 @@ PalletTown_RivalsHouse_Text_CantGroomAnEgg::
 	.string "groom an EGG.$"
 
 PalletTown_RivalsHouse_Text_MayISeeFirstMon::
-	.string "DAISY: Your POKéMON grow to love\n"
+	.string "Your POKéMON grow to love\n"
 	.string "you if you raise them with love.\p"
 	.string "For example, {PLAYER}, may I see\n"
 	.string "your first POKéMON?$"

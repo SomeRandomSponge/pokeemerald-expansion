@@ -40,3 +40,17 @@ EventScript_SetupRivalGfxIdMale2::
 EventScript_SetupRivalGfxIdFemale2::
 	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RIVAL_MAY_NORMAL
 	return
+
+Common_EventScript_SetupRedLeafGfxId::
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, EventScript_SetupRedLeafGfxIdFemale
+	goto_if_eq VAR_RESULT, FEMALE, EventScript_SetupRedLeafGfxIdMale
+	end
+
+EventScript_SetupRedLeafGfxIdFemale::
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_GREEN_NORMAL
+	return
+
+EventScript_SetupRedLeafGfxIdMale::
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RED_NORMAL
+	return
