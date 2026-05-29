@@ -61,9 +61,9 @@ CeladonCity_DepartmentStore_2F_TMs::
 	end
 
 CeladonCity_DepartmentStore_2F_Text_SuperRepelMorePowerfulRepel::
-	.string "SUPER REPEL keeps weak POKéMON at\n"
+	.string "Super Repel keeps weak Pokémon at\n"
 	.string "bay…\p"
-	.string "Hmm, it's a more powerful REPEL.$"
+	.string "Hmm, it's a more powerful Repel.$"
 
 CeladonCity_DepartmentStore_2F_Text_BuyReviveForLongOutings::
 	.string "For long outings, you should buy\n"

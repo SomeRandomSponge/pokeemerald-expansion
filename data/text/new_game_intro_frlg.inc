@@ -235,7 +235,7 @@ gOakSpeech_Text_RememberRivalsName::
 
 gOakSpeech_Text_LetsGo::
 	.string "{PLAYER}!\p"
-	.string "Your very own Pokémon legend is\n"
-	.string "about to unfold!\p"
-	.string "A world of dreams and adventures\n"
-	.string "with Pokémon awaits! Let's go!$"
+	.string "Your very own Pokémon legend is about\n"
+	.string "to unfold!\p"
+	.string "A world of dreams and adventures with\n"
+	.string "Pokémon awaits! Let's go!$"

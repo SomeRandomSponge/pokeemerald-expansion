@@ -50,7 +50,7 @@ CeladonCity_DepartmentStore_3F_EventScript_Poster::
 	end
 
 CeladonCity_DepartmentStore_3F_Text_OTStandsForOriginalTrainer::
-	.string "Captured POKéMON are registered\n"
+	.string "Captured Pokémon are registered\n"
 	.string "with an ID No. and the OT.\p"
 	.string "OT stands for “Original TRAINER” -\n"
 	.string "the TRAINER that caught it first.$"
@@ -66,10 +66,10 @@ CeladonCity_DepartmentStore_3F_Text_HaunterEvolvedOnTrade::
 	.string "I collect them!\p"
 	.string "Huh?\p"
 	.string "HAUNTER turned into a different\n"
-	.string "POKéMON while being traded!$"
+	.string "Pokémon while being traded!$"
 
 CeladonCity_DepartmentStore_3F_Text_CanIdentifyTradeMonsByID::
-	.string "You can identify POKéMON you get\n"
+	.string "You can identify Pokémon you get\n"
 	.string "in trades by their ID Numbers.$"
 
 CeladonCity_DepartmentStore_3F_Text_ItsSuperNES::

@@ -134,7 +134,7 @@ Route121_SafariZoneEntrance_Text_ComeInAndEnjoy:
 Route121_SafariZoneEntrance_Text_FirstTimeInfo:
 	.string "When you enter the SAFARI ZONE, you\n"
 	.string "start with 30 SAFARI BALLS for\l"
-	.string "catching POKéMON.\p"
+	.string "catching Pokémon.\p"
 	.string "The SAFARI Game is over when you run\n"
 	.string "out of SAFARI BALLS, or when you've\l"
 	.string "walked 500 steps.\p"
