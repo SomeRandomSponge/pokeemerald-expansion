@@ -477,6 +477,14 @@ static const u8 *ExpandPlaceholder_KunChan(void)
         return gText_ExpandedPlaceholder_Chan;
 }
 
+static const u8 *ExpandPlaceholder_GreenRed(void)
+{
+    if (gSaveBlock2Ptr->playerGender == MALE)
+        return gText_ExpandedPlaceholder_Green;
+    else
+        return gText_ExpandedPlaceholder_Red;
+}
+
 static const u8 *ExpandPlaceholder_RivalName(void)
 {
 #if IS_FRLG
@@ -554,6 +562,7 @@ const u8 *GetExpandedPlaceholder(u32 id)
         [PLACEHOLDER_ID_KYOGRE]       = ExpandPlaceholder_Kyogre,
         [PLACEHOLDER_ID_GROUDON]      = ExpandPlaceholder_Groudon,
         [PLACEHOLDER_ID_REGION]       = ExpandPlaceholder_Region,
+        [PLACEHOLDER_ID_BESTOF]       = ExpandPlaceholder_GreenRed,
     };
 
     if (id >= ARRAY_COUNT(funcs))
