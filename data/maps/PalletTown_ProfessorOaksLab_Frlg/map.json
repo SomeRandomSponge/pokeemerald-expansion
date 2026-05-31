@@ -3,7 +3,6 @@
   "name": "PalletTown_ProfessorOaksLab_Frlg",
   "layout": "LAYOUT_PALLET_TOWN_PROFESSOR_OAKS_LAB",
   "music": "MUS_RG_OAK_LAB",
-  "region": "REGION_KANTO",
   "region_map_section": "MAPSEC_PALLET_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -77,7 +76,7 @@
       "local_id": "LOCALID_BULBASAUR_BALL",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 8,
+      "x": 9,
       "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -92,7 +91,7 @@
       "local_id": "LOCALID_SQUIRTLE_BALL",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 9,
+      "x": 10,
       "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -107,7 +106,7 @@
       "local_id": "LOCALID_CHARMANDER_BALL",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 10,
+      "x": 11,
       "y": 4,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -162,6 +161,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "PalletTown_ProfessorOaksLab_EventScript_Pokedex",
       "flag": "FLAG_HIDE_POKEDEX"
+    },
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
+      "x": 7,
+      "y": 4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "PalletTown_ProfessorOaksLab_EventScript_RedLeaf",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -276,5 +289,6 @@
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "PalletTown_ProfessorOaksLab_EventScript_RightSign"
     }
-  ]
+  ],
+  "region": "REGION_KANTO"
 }

@@ -3,7 +3,6 @@
   "name": "PalletTown_Frlg",
   "layout": "LAYOUT_PALLET_TOWN",
   "music": "MUS_RG_PALLET",
-  "region": "REGION_KANTO",
   "region_map_section": "MAPSEC_PALLET_TOWN",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
@@ -31,7 +30,7 @@
       "local_id": "LOCALID_PALLET_SIGN_LADY",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_1_FRLG",
-      "x": 3,
+      "x": 22,
       "y": 10,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
@@ -61,10 +60,10 @@
       "local_id": "LOCALID_PALLET_PROF_OAK",
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_PROF_OAK",
-      "x": 10,
-      "y": 8,
+      "x": 12,
+      "y": -5,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -152,19 +151,20 @@
     },
     {
       "type": "sign",
-      "x": 9,
-      "y": 11,
+      "x": 26,
+      "y": 6,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "PalletTown_EventScript_TownSign"
     },
     {
       "type": "sign",
-      "x": 5,
-      "y": 14,
+      "x": 22,
+      "y": 9,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "PalletTown_EventScript_TrainerTips"
     }
-  ]
+  ],
+  "region": "REGION_KANTO"
 }
