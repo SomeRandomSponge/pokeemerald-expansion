@@ -718,6 +718,7 @@ static const u32 sCompressedStatuses[] =
 // 2) change heldItem:10 to heldItem:11 AND change the below assert for ITEMS_COUNT to check for (1 << 11).
 // 3) repurpose IDs from other items that aren't being used, like ITEM_GOLD_TEETH or ITEM_SS_TICKET until ITEMS_COUNT equals 1023, the max value that will fit in 10 bits.
 
+/*
 UNUSED static const struct BoxPokemon sBoxPokemonConstantsFit =
 {
     //.language = NUM_LANGUAGES - 1,
@@ -2008,7 +2009,6 @@ static ALWAYS_INLINE bool32 IsEggOrBadEgg(struct BoxPokemon *boxMon)
  * number of arguments. */
 u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
 {
-    s32 i;
     u32 retVal = 0;
 
     // Any field greater than MON_DATA_ENCRYPT_SEPARATOR is encrypted and must be treated as such
@@ -2067,6 +2067,7 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
                     }
                     else
                     {
+                        data[retVal++] = boxMon->nickname11;
                     }
                 }
 
@@ -2075,22 +2076,22 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             break;
         }
         case MON_DATA_SPECIES:
-            retVal = IsBadEgg(boxMon) ? SPECIES_EGG : GetSubstruct0(boxMon)->species;
+            retVal = IsBadEgg(boxMon) ? SPECIES_EGG : boxMon->species;
             break;
         case MON_DATA_HELD_ITEM:
-            retVal = GetSubstruct0(boxMon)->heldItem;
+            retVal = boxMon->heldItem;
             break;
         case MON_DATA_EXP:
-            retVal = GetSubstruct0(boxMon)->experience;
+            retVal = boxMon->experience;
             break;
         case MON_DATA_PP_BONUSES:
-            retVal = GetSubstruct0(boxMon)->ppBonuses;
+            retVal = boxMon->ppBonuses;
             break;
         case MON_DATA_FRIENDSHIP:
-            retVal = GetSubstruct0(boxMon)->friendship;
+            retVal = boxMon->friendship;
             break;
         case MON_DATA_MOVE1:
-            retVal = GetSubstruct1(boxMon)->move1;
+            retVal = boxMon->move1;
             break;
         case MON_DATA_MOVE2:
             retVal = boxMon->move2;
@@ -2105,40 +2106,34 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             retVal = boxMon->pp1;
             break;
         case MON_DATA_PP2:
-            retVal = GetSubstruct1(boxMon)->pp2;
+            retVal = boxMon->pp2;
             break;
         case MON_DATA_PP3:
-            retVal = GetSubstruct1(boxMon)->pp3;
+            retVal = boxMon->pp3;
             break;
         case MON_DATA_PP4:
-            retVal = GetSubstruct1(boxMon)->pp4;
+            retVal = boxMon->pp4;
             break;
         case MON_DATA_HP_EV:
-            retVal = GetSubstruct2(boxMon)->hpEV;
+            retVal = boxMon->hpEV;
             break;
         case MON_DATA_ATK_EV:
-            retVal = GetSubstruct2(boxMon)->attackEV;
+            retVal = boxMon->attackEV;
             break;
         case MON_DATA_DEF_EV:
-            retVal = GetSubstruct2(boxMon)->defenseEV;
+            retVal = boxMon->defenseEV;
             break;
         case MON_DATA_SPEED_EV:
-            retVal = GetSubstruct2(boxMon)->speedEV;
             retVal = boxMon->speedEV;
             break;
         case MON_DATA_SPATK_EV:
-            retVal = GetSubstruct2(boxMon)->spAttackEV;
             retVal = boxMon->spAttackEV;
             break;
         case MON_DATA_SPDEF_EV:
-            retVal = GetSubstruct2(boxMon)->spDefenseEV;
-        case MON_DATA_COOL:
-            break;
-        case MON_DATA_POKERUS:
             retVal = boxMon->spDefenseEV;
             break;
         case MON_DATA_MET_LOCATION:
-            retVal = GetSubstruct3(boxMon)->metLocation;
+            retVal = boxMon->metLocation;
             break;
         case MON_DATA_MET_LEVEL:
             retVal = boxMon->metLevel;
@@ -2147,11 +2142,10 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             retVal = gGameVersion;
             break;
         case MON_DATA_POKEBALL:
-            retVal = GetSubstruct0(boxMon)->pokeball;
             retVal = boxMon->pokeball;
             break;
         case MON_DATA_OT_GENDER:
-            retVal = GetSubstruct3(boxMon)->otGender;
+            retVal = boxMon->otGender;
             break;
         case MON_DATA_HP_IV:
             retVal = boxMon->hpIV;
@@ -2169,25 +2163,12 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             retVal = boxMon->spAttackIV;
             break;
         case MON_DATA_SPDEF_IV:
-            retVal = GetSubstruct3(boxMon)->spDefenseIV;
+            retVal = boxMon->spDefenseIV;
             break;
         case MON_DATA_IS_EGG:
             retVal = IsEggOrBadEgg(boxMon);
             break;
         case MON_DATA_ABILITY_NUM:
-        case MON_DATA_COOL_RIBBON:
-            retVal = GetSubstruct3(boxMon)->coolRibbon;
-            break;
-        case MON_DATA_BEAUTY_RIBBON:
-            retVal = GetSubstruct3(boxMon)->beautyRibbon;
-            break;
-        case MON_DATA_CUTE_RIBBON:
-            retVal = GetSubstruct3(boxMon)->cuteRibbon;
-            break;
-        case MON_DATA_SMART_RIBBON:
-            retVal = GetSubstruct3(boxMon)->smartRibbon;
-            break;
-        case MON_DATA_TOUGH_RIBBON:
             retVal = boxMon->abilityNum;
             break;
         case MON_DATA_SPECIES_OR_EGG:
