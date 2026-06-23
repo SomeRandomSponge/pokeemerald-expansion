@@ -2624,7 +2624,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         break;
     case MOVE_EFFECT_INCINERATE:
         if ((gItemsInfo[gBattleMons[effectBattler].item].pocket == POCKET_BERRIES
-          || (B_INCINERATE_GEMS >= GEN_6 && GetBattlerHoldEffect(effectBattler) == HOLD_EFFECT_GEMS))
+          || (B_INCINERATE_GEMS >= GEN_6 && GetItemHoldEffect(gBattleMons[effectBattler].item) == HOLD_EFFECT_GEMS))
          && abilities[effectBattler] != ABILITY_STICKY_HOLD)
         {
             gLastUsedItem = gBattleMons[effectBattler].item;
@@ -2895,13 +2895,17 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
         }
         break;
     case MOVE_EFFECT_EERIE_SPELL:
-        if (gLastMoves[effectBattler] != MOVE_NONE && gLastMoves[effectBattler] != 0xFFFF)
+        if (gLastMoves[effectBattler] != MOVE_NONE && gLastMoves[effectBattler] != MOVE_UNAVAILABLE)
         {
             u32 i;
+            enum Move moveToReduce = gLastMoves[effectBattler];
+
+            if (IsMaxMove(moveToReduce))
+                moveToReduce = gBattleStruct->dynamax.baseMoves[effectBattler];
 
             for (i = 0; i < MAX_MON_MOVES; i++)
             {
-                if (gLastMoves[effectBattler] == gBattleMons[effectBattler].moves[i])
+                if (moveToReduce == gBattleMons[effectBattler].moves[i])
                     break;
             }
 
@@ -2912,7 +2916,7 @@ void SetMoveEffect(enum BattlerId battlerAtk, enum BattlerId effectBattler, enum
                 if (gBattleMons[effectBattler].pp[i] < ppToDeduct)
                     ppToDeduct = gBattleMons[effectBattler].pp[i];
 
-                PREPARE_MOVE_BUFFER(gBattleTextBuff1, gLastMoves[effectBattler])
+                PREPARE_MOVE_BUFFER(gBattleTextBuff1, moveToReduce)
                 ConvertIntToDecimalStringN(gBattleTextBuff2, ppToDeduct, STR_CONV_MODE_LEFT_ALIGN, 1);
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleTextBuff2, 1, ppToDeduct)
                 gBattleMons[effectBattler].pp[i] -= ppToDeduct;
@@ -10756,6 +10760,8 @@ static void SetStatChangeFlags(struct StatChange *st, u32 flags)
     st->ignoreMirrorArmored = SET_FLAG(STAT_CHANGE_IGNORE_MIRROR_ARMOR);
     st->itemMessage = SET_FLAG(STAT_CHANGE_ITEM);
     st->stickyWeb = SET_FLAG(STAT_CHANGE_STICKY_WEB);
+    st->mirrorHerbActivation = SET_FLAG(STAT_CHANGE_MIRROR_HERB);
+    st->opportunistActivation = SET_FLAG(STAT_CHANGE_OPPORTUNIST);
 }
 #undef SET_FLAG
 
@@ -11027,9 +11033,9 @@ bool32 CanMoveThawTarget(enum Ability abilityAtk, enum Move move)
     return GetConfig(B_HIT_THAW) >= GEN_6 && !IsSheerForceAffected(move, abilityAtk) && MoveThawsUser(move);
 }
 
-bool32 CanFireMoveThawTarget(enum Move move)
+bool32 CanFireMoveThawTarget(enum Move move, enum Type moveType)
 {
-    return GetConfig(B_HIT_THAW) >= GEN_3 && GetMoveType(move) == TYPE_FIRE && GetMovePower(move) != 0;
+    return GetConfig(B_HIT_THAW) >= GEN_3 && moveType == TYPE_FIRE && GetMovePower(move) != 0;
 }
 
 void BS_CheckParentalBondCounter(void)
@@ -11983,11 +11989,12 @@ void BS_TryRevivalBlessing(void)
 
 void BS_JumpIfCommanderActive(void)
 {
-    NATIVE_ARGS(const u8 *jumpInstr);
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    enum BattlerId battler = GetBattlerForBattleScript(cmd->battler);
 
-    if (gBattleStruct->battlerState[gBattlerTarget].commanderSpecies != SPECIES_NONE)
+    if (gBattleStruct->battlerState[battler].commanderSpecies != SPECIES_NONE)
         gBattlescriptCurrInstr = cmd->jumpInstr;
-    else if (gBattleMons[gBattlerTarget].volatiles.semiInvulnerable == STATE_COMMANDER)
+    else if (gBattleMons[battler].volatiles.semiInvulnerable == STATE_COMMANDER)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -13208,29 +13215,43 @@ void BS_JumpIfTargetAlly(void)
 void BS_TryPsychoShift(void)
 {
     NATIVE_ARGS(const u8 *failInstr, const u8 *sleepClauseFailInstr);
+    enum Ability attackerAbility = GetBattlerAbility(gBattlerAttacker);
     enum Ability targetAbility = GetBattlerAbility(gBattlerTarget);
+    enum MoveEffect synchronizeEffect = MOVE_EFFECT_NONE;
+
     // Psycho shift works
-    if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_POISON) && CanBePoisoned(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), targetAbility))
+    if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_POISON)
+     && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_TOXIC, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+        synchronizeEffect = MOVE_EFFECT_POISON;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_TOXIC_POISON) && CanBePoisoned(gBattlerAttacker, gBattlerTarget, GetBattlerAbility(gBattlerAttacker), targetAbility))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_TOXIC_POISON)
+          && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_TOXIC, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+        synchronizeEffect = MOVE_EFFECT_TOXIC;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_BURN) && CanBeBurned(gBattlerAttacker, gBattlerTarget, targetAbility))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_BURN)
+          && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_BURN, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 2;
+        synchronizeEffect = MOVE_EFFECT_BURN;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS) && CanBeParalyzed(gBattlerAttacker, gBattlerTarget, targetAbility))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_PARALYSIS)
+          && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_PARALYSIS, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 3;
+        synchronizeEffect = MOVE_EFFECT_PARALYSIS;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP) && CanBeSlept(gBattlerAttacker, gBattlerTarget, targetAbility, BLOCKED_BY_SLEEP_CLAUSE))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
+          && !IsSleepClauseActiveForSide(GetBattlerSide(gBattlerTarget))
+          && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_SLEEP, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 4;
     }
-    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_FROSTBITE) && CanBeFrozen(gBattlerAttacker, gBattlerTarget, targetAbility))
+    else if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_FROSTBITE)
+          && CanSetNonVolatileStatus(gBattlerAttacker, gBattlerTarget, attackerAbility, targetAbility, MOVE_EFFECT_FREEZE_OR_FROSTBITE, CHECK_TRIGGER))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = 5;
     }
@@ -13254,6 +13275,7 @@ void BS_TryPsychoShift(void)
         &gBattleMons[gBattlerTarget].status1);
     MarkBattlerForControllerExec(gBattlerTarget);
     TryActivateSleepClause(gBattlerTarget, gBattlerPartyIndexes[gBattlerTarget]);
+    TrySynchronizeActivation(gBattlerAttacker, gBattlerTarget, synchronizeEffect);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
