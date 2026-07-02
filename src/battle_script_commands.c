@@ -404,7 +404,6 @@ static void Cmd_waitstate(void);
 static void Cmd_tryselfconfusiondmgformchange(void);
 static void Cmd_return(void);
 static void Cmd_end(void);
-static void Cmd_end2(void);
 static void Cmd_end3(void);
 static void Cmd_setchargingturn(void);
 static void Cmd_call(void);
@@ -505,7 +504,6 @@ static void Cmd_setvolatile(void);
 static void Cmd_trysetperishsong(void);
 static void Cmd_jumpifconfusedandstatmaxed(void);
 static void Cmd_setembargo(void);
-static void Cmd_presentdamagecalculation(void);
 static void Cmd_setsafeguard(void);
 static void Cmd_jumpifnopursuitswitchdmg(void);
 static void Cmd_tryactivateitem(void);
@@ -622,7 +620,6 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_TRYSELFCONFUSIONDMGFORMCHANGE]         = Cmd_tryselfconfusiondmgformchange,
     [B_SCR_OP_RETURN]                                = Cmd_return,
     [B_SCR_OP_END]                                   = Cmd_end,
-    [B_SCR_OP_END2]                                  = Cmd_end2,
     [B_SCR_OP_END3]                                  = Cmd_end3,
     [B_SCR_OP_SETCHARGINGTURN]                       = Cmd_setchargingturn,
     [B_SCR_OP_CALL]                                  = Cmd_call,
@@ -723,7 +720,6 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_TRYSETPERISHSONG]                      = Cmd_trysetperishsong,
     [B_SCR_OP_JUMPIFCONFUSEDANDSTATMAXED]            = Cmd_jumpifconfusedandstatmaxed,
     [B_SCR_OP_SETEMBARGO]                            = Cmd_setembargo,
-    [B_SCR_OP_PRESENTDAMAGECALCULATION]              = Cmd_presentdamagecalculation,
     [B_SCR_OP_SETSAFEGUARD]                          = Cmd_setsafeguard,
     [B_SCR_OP_JUMPIFNOPURSUITSWITCHDMG]              = Cmd_jumpifnopursuitswitchdmg,
     [B_SCR_OP_TRYACTIVATEITEM]                       = Cmd_tryactivateitem,
@@ -818,6 +814,7 @@ void (*const gBattleScriptingCommandsTable[])(void) =
     [B_SCR_OP_UNUSED_36]                             = Cmd_dummy,
     [B_SCR_OP_UNUSED_37]                             = Cmd_dummy,
     [B_SCR_OP_UNUSED_38]                             = Cmd_dummy,
+    [B_SCR_OP_UNUSED_39]                             = Cmd_dummy,
     [B_SCR_OP_CALLNATIVE]                            = Cmd_callnative,
 };
 
@@ -1124,12 +1121,6 @@ static void Cmd_printselectionstringfromtable(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
-}
-
-static inline void SetDynamicMoveCategoryAndDamage(struct DamageContext *ctx)
-{
-    SetDynamicMoveCategory(gBattlerAttacker, ctx->battlerDef, gCurrentMove);
-    gBattleStruct->moveDamage[ctx->battlerDef] = CalculateMoveDamage(ctx);
 }
 
 static void Cmd_typecalc(void)
@@ -4668,7 +4659,7 @@ static void Cmd_tryselfconfusiondmgformchange(void)
 
 static void Cmd_return(void)
 {
-    assertf(gBattleResources->battleScriptsStack->size != 0, "return used with nothing to return to, did you mean end/end2/end3?");
+    assertf(gBattleResources->battleScriptsStack->size != 0, "return used with nothing to return to, did you mean end/end3?");
 
     BattleScriptPop();
 }
@@ -4679,19 +4670,6 @@ static void Cmd_end(void)
 
     assertf(gSelectionBattleScripts[gBattlerAttacker] == NULL, "incorrect use of end in selection script, did you mean endselectionscript?");
     assertf(gBattleMainFunc != RunBattleScriptCommands, "incorrect use of end in battle script, did you mean end3?");
-
-    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
-        BattleArena_AddSkillPoints(gBattlerAttacker);
-
-    gCurrentActionFuncId = B_ACTION_TRY_FINISH;
-}
-
-static void Cmd_end2(void)
-{
-    CMD_ARGS();
-
-    assertf(gSelectionBattleScripts[gBattlerAttacker] == NULL, "incorrect use of end2 in selection script, did you mean endselectionscript?");
-    assertf(gBattleMainFunc != RunBattleScriptCommands, "incorrect use of end2 in battle script, did you mean end3?");
 
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
 }
@@ -4707,7 +4685,7 @@ static void Cmd_end3(void)
     if (gBattleResources->battleCallbackStack->size != 0)
         gBattleResources->battleCallbackStack->size--;
     else // nothing to callback to
-        assertf(gBattleMainFunc != RunBattleScriptCommands_PopCallbacksStack, "incorrect use of end3 in battle script, did you mean end/end2?");
+        assertf(gBattleMainFunc != RunBattleScriptCommands_PopCallbacksStack, "incorrect use of end3 in battle script, did you mean end?");
 
     gBattleMainFunc = gBattleResources->battleCallbackStack->function[gBattleResources->battleCallbackStack->size];
 }
@@ -8361,26 +8339,6 @@ static void Cmd_setembargo(void)
     }
 }
 
-static void Cmd_presentdamagecalculation(void)
-{
-    CMD_ARGS();
-
-    if (gBattleStruct->presentBasePower)
-    {
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else if (gBattleMons[gBattlerTarget].maxHP == gBattleMons[gBattlerTarget].hp)
-    {
-        gBattlescriptCurrInstr = BattleScript_AlreadyAtFullHp;
-    }
-    else
-    {
-        gBattleStruct->moveResultFlags[gBattlerTarget] &= ~(MOVE_RESULT_MISSED | MOVE_RESULT_DOESNT_AFFECT_FOE);
-        SetHealAmount(gBattlerTarget, GetNonDynamaxMaxHP(gBattlerTarget) / 4);
-        gBattlescriptCurrInstr = BattleScript_PresentHealTarget;
-    }
-}
-
 static void Cmd_setsafeguard(void)
 {
     CMD_ARGS();
@@ -9177,17 +9135,6 @@ static void Cmd_trysetvolatile(void)
     else
     {
         SetMonVolatile(battler, cmd->_volatile, TRUE);
-        switch (cmd->_volatile)
-        {
-        case VOLATILE_MAGNET_RISE:
-            gBattleMons[battler].volatiles.magnetRiseTimer = B_MAGNET_RISE_TIMER;
-            break;
-        case VOLATILE_LASER_FOCUS:
-            gBattleMons[battler].volatiles.laserFocusTimer = B_LASER_FOCUS_TIMER;
-            break;
-        default:
-            break;
-        }
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -12807,7 +12754,7 @@ void BS_GravityOnAirborneMons(void)
 {
     NATIVE_ARGS();
     gBattleMons[gBattlerTarget].volatiles.semiInvulnerable = STATE_NONE;
-    gBattleMons[gBattlerTarget].volatiles.magnetRise = FALSE;
+    gBattleMons[gBattlerTarget].volatiles.magnetRiseTimer = 0;
     gBattleMons[gBattlerTarget].volatiles.telekinesis = FALSE;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
@@ -14576,12 +14523,12 @@ void BS_DestroyItemPopup(void)
 
     if (IsAnyAbilityPopUpActive())
         return;
-        
+
     for (enum BattlerId battler = 0; battler < gBattlersCount; battler++)
         DestroyAbilityPopUp(battler);
 
     FreeAbilityPopUpGfx();
-    
+
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
@@ -14597,6 +14544,6 @@ void BS_MultiHitPlurality(void)
     {
         PREPARE_STRING_BUFFER(gBattleTextBuff2, STRINGID_S);
     }
-    
+
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
