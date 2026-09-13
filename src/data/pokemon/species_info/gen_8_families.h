@@ -293,8 +293,12 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .frontPic = gMonFrontPic_Scorbunny,
         .frontPicSize = MON_COORDS_SIZE(40, 56),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 48),
+            ANIMCMD_FRAME(0, 1),
+        ),
+        .frontAnimId = ANIM_H_JUMPS,
         .backPic = gMonBackPic_Scorbunny,
         .backPicSize = MON_COORDS_SIZE(48, 56),
         .backPicYOffset = 4,
@@ -357,8 +361,12 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .frontPic = gMonFrontPic_Raboot,
         .frontPicSize = MON_COORDS_SIZE(40, 56),
         .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 1),
+        ),
+        .frontAnimId = ANIM_BACK_AND_LUNGE,
         .backPic = gMonBackPic_Raboot,
         .backPicSize = MON_COORDS_SIZE(56, 56),
         .backPicYOffset = 6,
@@ -421,8 +429,11 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .frontPic = gMonFrontPic_Cinderace,
         .frontPicSize = MON_COORDS_SIZE(40, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
-        //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 42),
+            ANIMCMD_FRAME(0, 1),
+        ),
+        .frontAnimId = ANIM_CONCAVE_ARC_SMALL,
         .backPic = gMonBackPic_Cinderace,
         .backPicSize = MON_COORDS_SIZE(48, 56),
         .backPicYOffset = 4,
@@ -6877,7 +6888,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .palette = gMonPalette_ZacianHero,
         .shinyPalette = gMonShinyPalette_ZacianHero,
         .iconSprite = gMonIcon_ZacianHero,
-        .iconPalIndex = 2,
+        .iconPalIndex = 0,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 9, SHADOW_SIZE_L)
         FOOTPRINT(Zacian)
@@ -6945,7 +6956,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .palette = gMonPalette_ZacianCrowned,
         .shinyPalette = gMonShinyPalette_ZacianCrowned,
         .iconSprite = gMonIcon_ZacianCrowned,
-        .iconPalIndex = 2,
+        .iconPalIndex = 0,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-3, 12, SHADOW_SIZE_L)
         FOOTPRINT(Zacian)
@@ -7015,7 +7026,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .palette = gMonPalette_ZamazentaHero,
         .shinyPalette = gMonShinyPalette_ZamazentaHero,
         .iconSprite = gMonIcon_ZamazentaHero,
-        .iconPalIndex = 2,
+        .iconPalIndex = 0,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 12, SHADOW_SIZE_L)
         FOOTPRINT(Zamazenta)
@@ -7083,7 +7094,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .palette = gMonPalette_ZamazentaCrowned,
         .shinyPalette = gMonShinyPalette_ZamazentaCrowned,
         .iconSprite = gMonIcon_ZamazentaCrowned,
-        .iconPalIndex = 2,
+        .iconPalIndex = 0,
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 12, SHADOW_SIZE_L)
         FOOTPRINT(Zamazenta)
