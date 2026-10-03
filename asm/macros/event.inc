@@ -3075,6 +3075,8 @@
 	.4byte \lose_text_b
 	.2byte \partnerId
 	waitstate
+	.endm
+
 	@ ========== Unbound Quest Menu ==========
 	.macro questmenu case:req, questId:req
 	.byte SCR_OP_QUESTMENU
